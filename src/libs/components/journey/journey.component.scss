@@ -13,19 +13,26 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100svh;
-  min-height: 560px;
+  height: var(--journey-height, 100svh);
+  padding-bottom: env(safe-area-inset-bottom);
   overflow: hidden;
+
+  @include desktop {
+    min-height: 560px;
+  }
   background:
     radial-gradient(ellipse at 70% 100%, rgba(61, 123, 255, 0.16), transparent 60%),
     linear-gradient(to bottom, var(--surface-0), var(--surface-1));
 
   @include phone {
-    --road-height: 76px;
-    --truck-width: 80vw;
+    --road-height: 92px;
+    --truck-width: 60vw;
     --stop-gap: 92vw;
     --start-offset: 105vw;
     --finish-tail: 90vw;
+
+    // The space under the road reads as the dark roadside verge
+    background: linear-gradient(to bottom, var(--surface-0) 0%, var(--surface-1) 55%, #04060d 70%);
   }
 
   .eyebrow {
@@ -36,6 +43,26 @@
   .section-title {
     @include section-title;
     font-size: clamp(2.2rem, 5vw, 4.4rem);
+
+    @include phone {
+      font-size: 2rem;
+    }
+  }
+
+  // Short phones (e.g. iPhone SE with toolbars): tighter heading, more room for the road
+  @media (max-width: 599px) and (max-height: 640px) {
+    .eyebrow {
+      display: none;
+    }
+
+    .section-title {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .journey-status {
+      margin-top: var(--space-3);
+    }
   }
 }
 
@@ -47,6 +74,11 @@
   max-width: var(--content-width);
   margin: 0 auto;
   padding: calc(var(--header-height) + var(--space-5)) var(--gutter) 0;
+
+  // The header is always visible, so the heading starts right under it
+  @include phone {
+    padding-top: calc(var(--header-height) + var(--space-3) + env(safe-area-inset-top));
+  }
 
   .journey-status {
     display: flex;
@@ -89,6 +121,13 @@
   position: relative;
   flex-grow: 1;
   overflow: hidden;
+
+  // On phones the scene keeps a fixed height right under the heading instead of
+  // stretching to the bottom edge, where the browser's toolbar may cover it
+  @include phone {
+    flex: 0 1 360px;
+    margin-top: var(--space-3);
+  }
   background-image:
     radial-gradient(1px 1px at 20px 30px, rgba(255, 255, 255, 0.5), transparent),
     radial-gradient(1px 1px at 120px 80px, rgba(255, 255, 255, 0.35), transparent),
@@ -160,6 +199,16 @@
       rgba(255, 255, 255, 0.65) 0 70px,
       transparent 70px 140px
     );
+
+    // Shorter dashes on phones, so you can see many of them rushing past
+    @include phone {
+      height: 3px;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.75) 0 34px,
+        transparent 34px 68px
+      );
+    }
   }
 
   &::after {
@@ -294,6 +343,38 @@
     font-size: var(--font-size-sm);
     color: var(--text-secondary);
   }
+
+  // Compact billboards on phones, so the road and the truck stay the stars
+  @include phone {
+    width: min(300px, 72vw);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+
+    .journey-card-number {
+      font-size: 1.8rem;
+    }
+
+    .journey-card-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+
+    .journey-card-title {
+      margin-top: var(--space-2);
+      font-size: 1.4rem;
+    }
+
+    .journey-card-place {
+      margin-bottom: var(--space-2);
+      font-size: 1.05rem;
+    }
+
+    .journey-card-description {
+      font-size: var(--font-size-xs);
+      line-height: 1.5;
+    }
+  }
 }
 
 .journey-stop-reached .journey-card {
@@ -382,7 +463,7 @@
     position: absolute;
     right: 92%;
     top: 12%;
-    width: 30vw;
+    width: max(30vw, 140px);
     height: 70%;
     background: repeating-linear-gradient(
       to bottom,

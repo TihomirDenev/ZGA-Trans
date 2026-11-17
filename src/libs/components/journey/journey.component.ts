@@ -4,7 +4,17 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { TruckComponent } from '@libs/components/truck/truck.component';
-import { JOURNEY_LAMP_COUNT, JOURNEY_TRUCK_BUMPS } from '@libs/constants/animation.constants';
+import {
+  JOURNEY_ACTIVE_BODY_CLASS,
+  JOURNEY_LAMP_COUNT,
+  JOURNEY_SCROLL_LENGTH_DESKTOP,
+  JOURNEY_SCROLL_LENGTH_PHONE,
+  JOURNEY_SCROLL_LENGTH_TABLET,
+  JOURNEY_TRUCK_BUMPS,
+  JOURNEY_TRUCK_FULL_SPEED_VELOCITY,
+  JOURNEY_TRUCK_MAX_LEAD_DESKTOP,
+  JOURNEY_TRUCK_MAX_LEAD_PHONE,
+} from '@libs/constants/animation.constants';
 import {
   JOURNEY_STEPS,
   SKYLINE_BUILDING_HEIGHTS,
@@ -48,8 +58,14 @@ export class JourneyComponent {
   protected readonly reachedStepCount = signal(0);
   protected readonly isReducedMotion = signal(false);
 
+  private readonly onScrollTriggerRefresh = (): void => this.matchHeightToVisibleScreen();
+
   constructor() {
     afterNextRender(() => this.initAnimations());
+    this.destroyRef.onDestroy(() => {
+      this.markJourneyAsActive(false);
+      ScrollTrigger.removeEventListener('refreshInit', this.onScrollTriggerRefresh);
+    });
   }
 
   private initAnimations(): void {
@@ -58,6 +74,9 @@ export class JourneyComponent {
       this.reachedStepCount.set(this.journeySteps.length);
       return;
     }
+
+    this.matchHeightToVisibleScreen();
+    ScrollTrigger.addEventListener('refreshInit', this.onScrollTriggerRefresh);
 
     createScopedAnimations(this.elementRef.nativeElement, this.destroyRef, () => {
       revealOnScroll('.journey-heading > *', '.journey');
@@ -76,17 +95,20 @@ export class JourneyComponent {
     const getWheelRadius = (): number => firstWheel.getBoundingClientRect().width / 2;
     const getWheelRotation = (): number =>
       getWheelRotationForDistance(getDriveDistance(), getWheelRadius());
+    const getScrollLength = (): number => getDriveDistance() * this.getScrollLengthMultiplier();
 
     const driveTimeline = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: {
         trigger: '.journey',
         start: 'top top',
-        end: () => `+=${getDriveDistance()}`,
+        end: () => `+=${getScrollLength()}`,
         pin: true,
+        anticipatePin: 1,
         scrub: 0.8,
         invalidateOnRefresh: true,
-        onUpdate: (scrollTrigger) => this.showSpeedLines(scrollTrigger.getVelocity()),
+        onToggle: (scrollTrigger) => this.markJourneyAsActive(scrollTrigger.isActive),
+        onUpdate: (scrollTrigger) => this.reactToScrollSpeed(scrollTrigger.getVelocity()),
       },
     });
 
@@ -128,8 +150,24 @@ export class JourneyComponent {
     });
   }
 
-  private showSpeedLines(scrollVelocity: number): void {
-    const speedLinesOpacity = clampNumber(Math.abs(scrollVelocity) / 1800, 0, 1);
+  /**
+   * Fast scrolling makes the truck pull ahead and shows speed lines, like a camera that
+   * can't keep up. When the scroll stops, the truck eases back to its spot.
+   */
+  private reactToScrollSpeed(scrollVelocity: number): void {
+    const speedShare = clampNumber(scrollVelocity / JOURNEY_TRUCK_FULL_SPEED_VELOCITY, -1, 1);
+    const truckLead = speedShare * window.innerWidth * this.getTruckMaxLead();
+    const speedLinesOpacity = Math.abs(speedShare);
+
+    gsap.to('.journey-truck', {
+      x: truckLead,
+      duration: 0.6,
+      ease: 'power2.out',
+      overwrite: 'auto',
+      onComplete: () => {
+        gsap.to('.journey-truck', { x: 0, duration: 1.4, ease: 'power3.inOut', overwrite: 'auto' });
+      },
+    });
 
     gsap.to('.journey-speed-lines', {
       opacity: speedLinesOpacity,
@@ -139,5 +177,47 @@ export class JourneyComponent {
         gsap.to('.journey-speed-lines', { opacity: 0, duration: 0.8, overwrite: 'auto' });
       },
     });
+  }
+
+  /**
+   * Phone browsers (especially iOS) draw their toolbars over the page, so CSS viewport
+   * units can be taller than what you actually see. Measure the visible area instead,
+   * so the road and the truck never end up hidden behind the browser's bottom bar.
+   */
+  private matchHeightToVisibleScreen(): void {
+    const visibleScreenHeight = window.visualViewport?.height ?? window.innerHeight;
+
+    this.elementRef.nativeElement.style.setProperty(
+      '--journey-height',
+      `${Math.round(visibleScreenHeight)}px`,
+    );
+  }
+
+  private markJourneyAsActive(isActive: boolean): void {
+    document.body.classList.toggle(JOURNEY_ACTIVE_BODY_CLASS, isActive);
+  }
+
+  private getScrollLengthMultiplier(): number {
+    if (this.isPhoneScreen()) {
+      return JOURNEY_SCROLL_LENGTH_PHONE;
+    }
+
+    if (this.isTabletScreen()) {
+      return JOURNEY_SCROLL_LENGTH_TABLET;
+    }
+
+    return JOURNEY_SCROLL_LENGTH_DESKTOP;
+  }
+
+  private getTruckMaxLead(): number {
+    return this.isPhoneScreen() ? JOURNEY_TRUCK_MAX_LEAD_PHONE : JOURNEY_TRUCK_MAX_LEAD_DESKTOP;
+  }
+
+  private isPhoneScreen(): boolean {
+    return window.matchMedia('(max-width: 599px)').matches;
+  }
+
+  private isTabletScreen(): boolean {
+    return window.matchMedia('(max-width: 1023px)').matches;
   }
 }
