@@ -1,0 +1,122 @@
+<section id="contact" class="contact">
+  <div class="contact-glow" aria-hidden="true"></div>
+
+  <div class="section-inner contact-layout">
+    <div class="contact-intro">
+      <p class="eyebrow">Get a quote</p>
+      <h2 class="section-title">Ready to <em>ride?</em></h2>
+      <p class="contact-text">
+        Tell us where it’s going and we’ll come back with a clear, fixed price — usually within the
+        hour.
+      </p>
+
+      <p class="contact-response">
+        <span class="contact-response-dot"></span>
+        Dispatch is online now
+      </p>
+
+      <ul class="contact-channels">
+        @for (channel of contactChannels; track channel.id) {
+          <li>
+            <a class="contact-channel" [href]="channel.href" target="_blank" rel="noopener">
+              <span class="contact-channel-icon"><i class="bi {{ channel.icon }}"></i></span>
+              <span class="contact-channel-text">
+                <span class="contact-channel-label">{{ channel.label }}</span>
+                <span class="contact-channel-value">{{ channel.value }}</span>
+              </span>
+              <i class="bi bi-arrow-up-right contact-channel-arrow"></i>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="quote-card">
+      @if (isSubmitted()) {
+        <div class="quote-success">
+          <span class="quote-success-icon"><i class="bi bi-check2"></i></span>
+          <h3 class="quote-title">Your request is on its way.</h3>
+          <p class="contact-text">
+            Your email app should have opened with everything filled in — just hit send. We’ll be in
+            touch shortly.
+          </p>
+          <button class="button button-ghost" type="button" (click)="onSendAnother()">
+            Send another request
+          </button>
+        </div>
+      } @else {
+        <form class="quote-form" novalidate [formGroup]="quoteForm" (ngSubmit)="onSubmit()">
+          <h3 class="quote-title">Request a quote</h3>
+
+          <div class="form-grid">
+            <label class="form-field" [class.form-field-error]="hasFieldError('name')">
+              <span class="form-label">Your name *</span>
+              <input type="text" autocomplete="name" formControlName="name" />
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Company</span>
+              <input type="text" autocomplete="organization" formControlName="company" />
+            </label>
+
+            <label class="form-field" [class.form-field-error]="hasFieldError('email')">
+              <span class="form-label">Email *</span>
+              <input type="email" autocomplete="email" formControlName="email" />
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Phone</span>
+              <input type="tel" autocomplete="tel" formControlName="phone" />
+            </label>
+
+            <label
+              class="form-field"
+              [class.form-field-error]="hasFieldError('collectionPostcode')"
+            >
+              <span class="form-label">Collection postcode *</span>
+              <input type="text" placeholder="e.g. B1 1AA" formControlName="collectionPostcode" />
+            </label>
+
+            <label class="form-field" [class.form-field-error]="hasFieldError('deliveryPostcode')">
+              <span class="form-label">Delivery postcode *</span>
+              <input type="text" placeholder="e.g. M1 1AE" formControlName="deliveryPostcode" />
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Load type *</span>
+              <select formControlName="loadType">
+                @for (loadType of loadTypes; track loadType) {
+                  <option [value]="loadType">{{ loadType }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Collection date</span>
+              <input type="date" formControlName="collectionDate" />
+            </label>
+
+            <label class="form-field form-field-wide">
+              <span class="form-label">Anything else?</span>
+              <textarea
+                rows="4"
+                placeholder="Pallet count, weight, tail-lift, ADR…"
+                formControlName="details"
+              ></textarea>
+            </label>
+          </div>
+
+          @if (quoteForm.invalid && quoteForm.touched) {
+            <p class="form-error-message">
+              <i class="bi bi-exclamation-circle"></i> Please fill in the highlighted fields.
+            </p>
+          }
+
+          <button class="button button-primary quote-submit" type="submit">
+            Send request <i class="bi bi-send-fill"></i>
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+</section>
