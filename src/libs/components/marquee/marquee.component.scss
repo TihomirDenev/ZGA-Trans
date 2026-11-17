@@ -1,0 +1,78 @@
+.marquee {
+  position: relative;
+  display: grid;
+  padding: var(--space-9) 0;
+  overflow: hidden;
+
+  // Both tapes sit in the same grid cell so they cross each other
+  .marquee-tape {
+    grid-area: 1 / 1;
+    width: 110%;
+    margin-left: -5%;
+    overflow: hidden;
+  }
+
+  .marquee-tape-top {
+    z-index: 2;
+    padding: var(--space-4) 0;
+    background: var(--gradient-electric);
+    box-shadow: 0 0 60px -10px var(--accent-glow);
+    transform: rotate(-3deg);
+    color: var(--surface-0);
+  }
+
+  .marquee-tape-bottom {
+    z-index: 1;
+    padding: var(--space-3) 0;
+    background: var(--surface-1);
+    border-block: 1px solid var(--border-strong);
+    transform: rotate(2.5deg);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+  }
+
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .marquee-item {
+    padding: 0 var(--space-6);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .marquee-tape-top .marquee-item {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4.5vw, 3.6rem);
+    font-weight: 900;
+    font-stretch: 120%;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .marquee-tape-bottom .marquee-item {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent-soft);
+  }
+
+  .marquee-separator {
+    font-size: clamp(1.2rem, 3vw, 2.2rem);
+  }
+
+  .marquee-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--amber);
+    box-shadow: 0 0 14px var(--amber-glow);
+  }
+}

@@ -1,0 +1,27 @@
+<section class="marquee" aria-label="What we do">
+  <div class="marquee-tape marquee-tape-top">
+    <div class="marquee-track marquee-track-top">
+      @for (copy of trackCopies; track copy) {
+        <div class="marquee-group" [attr.aria-hidden]="copy > 0">
+          @for (item of topItems; track item) {
+            <span class="marquee-item">{{ item }}</span>
+            <i class="bi bi-lightning-charge-fill marquee-separator" aria-hidden="true"></i>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="marquee-tape marquee-tape-bottom">
+    <div class="marquee-track marquee-track-bottom">
+      @for (copy of trackCopies; track copy) {
+        <div class="marquee-group" [attr.aria-hidden]="copy > 0">
+          @for (item of bottomItems; track item) {
+            <span class="marquee-item">{{ item }}</span>
+            <span class="marquee-dot" aria-hidden="true"></span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</section>
