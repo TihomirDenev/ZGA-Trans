@@ -13,7 +13,15 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@libs/components/*": ["./src/libs/components/*"],
+      "@libs/pages/*": ["./src/libs/pages/*"],
+      "@libs/models/*": ["./src/libs/models/*"],
+      "@libs/constants/*": ["./src/libs/constants/*"],
+      "@libs/services/*": ["./src/libs/services/*"],
+      "@libs/helpers/*": ["./src/libs/helpers/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
