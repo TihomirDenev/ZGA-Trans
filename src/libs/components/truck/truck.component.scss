@@ -1,0 +1,154 @@
+:host {
+  display: block;
+}
+
+.truck {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+// ─── Effects ─────────────────────────────────────────────────────────────────
+.truck-underglow {
+  fill: rgba(61, 123, 255, 0.55);
+}
+
+.truck-beam {
+  fill: url(#truck-beam);
+  mix-blend-mode: screen;
+}
+
+// ─── Trailer ─────────────────────────────────────────────────────────────────
+.trailer-box {
+  fill: url(#truck-trailer-paint);
+  stroke: var(--accent-bright);
+  stroke-width: 1.6;
+}
+
+.trailer-chassis,
+.trailer-leg {
+  fill: #0b0f1c;
+}
+
+.trailer-lightning,
+.cab-lightning {
+  path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    opacity: 0.8;
+  }
+}
+
+.trailer-brand {
+  font-family: var(--font-display);
+  font-size: 46px;
+  font-weight: 900;
+  font-stretch: 120%;
+  fill: #eef3ff;
+  letter-spacing: 1px;
+}
+
+.trailer-slogan {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-style: italic;
+  fill: var(--accent-soft);
+}
+
+.truck-marker-light {
+  fill: var(--amber-bright);
+  filter: drop-shadow(0 0 3px var(--amber));
+}
+
+.truck-tail-light {
+  fill: #ff2b3d;
+  filter: drop-shadow(0 0 6px #ff2b3d);
+}
+
+// ─── Cab ─────────────────────────────────────────────────────────────────────
+.cab-shell {
+  fill: url(#truck-cab-paint);
+  stroke: var(--accent-bright);
+  stroke-width: 1.6;
+}
+
+.cab-door-line {
+  fill: none;
+  stroke: rgba(127, 176, 255, 0.25);
+  stroke-width: 1;
+}
+
+.cab-window,
+.cab-windscreen {
+  fill: url(#truck-glass);
+}
+
+.cab-mirror {
+  fill: #0b0f1c;
+  stroke: var(--accent-bright);
+  stroke-width: 1;
+}
+
+.cab-fuel-tank {
+  fill: #9aa4bb;
+  opacity: 0.85;
+}
+
+.cab-bumper {
+  fill: #0b0f1c;
+  stroke: var(--accent-bright);
+  stroke-width: 1;
+}
+
+.cab-headlight {
+  fill: #fff;
+  filter: drop-shadow(0 0 8px #cfe0ff);
+}
+
+.cab-led-strip {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.wheel-arch {
+  fill: #04060d;
+}
+
+// ─── Wheels ──────────────────────────────────────────────────────────────────
+.wheel-tyre {
+  fill: #07090f;
+  stroke: #1c2236;
+  stroke-width: 2;
+}
+
+.wheel-tread {
+  fill: none;
+  stroke: #1a2032;
+  stroke-width: 4;
+  stroke-dasharray: 3 3;
+}
+
+.wheel-rim {
+  fill: url(#truck-rim);
+}
+
+.wheel-rim-glow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+
+.wheel-spoke {
+  stroke: #3b4359;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.wheel-hub {
+  fill: #dfe5f2;
+}

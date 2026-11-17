@@ -1,0 +1,76 @@
+<section
+  id="journey"
+  class="journey"
+  [class.journey-reduced-motion]="isReducedMotion()"
+  [style.--journey-stop-count]="journeySteps.length"
+>
+  <div class="journey-heading">
+    <p class="eyebrow">How it works</p>
+    <h2 class="section-title">From your door <em>to the goal.</em></h2>
+
+    <div class="journey-status">
+      <span class="journey-status-label">
+        Stop {{ reachedStepCount() }} / {{ journeySteps.length }}
+      </span>
+      <span class="journey-progress"><span class="journey-progress-fill"></span></span>
+    </div>
+  </div>
+
+  <div class="journey-scene">
+    <div class="journey-moon" aria-hidden="true"></div>
+
+    <svg
+      class="journey-skyline"
+      [attr.viewBox]="'0 0 ' + skylineViewWidth + ' ' + skylineViewHeight"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path [attr.d]="skylinePath" />
+    </svg>
+
+    <div class="journey-world">
+      @for (lampIndex of lampIndexes; track lampIndex) {
+        <span class="journey-lamp" [style.--lamp-index]="lampIndex" aria-hidden="true"></span>
+      }
+
+      @for (step of journeySteps; track step.id; let index = $index) {
+        <div
+          class="journey-stop"
+          [class.journey-stop-reached]="index < reachedStepCount()"
+          [style.--stop-index]="index"
+        >
+          <article class="journey-card">
+            <div class="journey-card-top">
+              <span class="journey-card-number">0{{ index + 1 }}</span>
+              <span class="journey-card-icon"><i class="bi {{ step.icon }}"></i></span>
+            </div>
+            <h3 class="journey-card-title">{{ step.title }}</h3>
+            <p class="journey-card-place">{{ step.place }}</p>
+            <p class="journey-card-description">{{ step.description }}</p>
+          </article>
+          <span class="journey-post" aria-hidden="true"></span>
+        </div>
+      }
+
+      <div
+        class="journey-finish"
+        [class.journey-stop-reached]="reachedStepCount() === journeySteps.length"
+      >
+        <span class="journey-finish-line" aria-hidden="true"></span>
+        <p class="journey-finish-text">
+          Delivered.
+          <em>Straight to your goals.</em>
+        </p>
+      </div>
+
+      <div class="journey-road" aria-hidden="true">
+        <span class="journey-road-lane"></span>
+      </div>
+    </div>
+
+    <div class="journey-truck">
+      <span class="journey-speed-lines" aria-hidden="true"></span>
+      <app-truck />
+    </div>
+  </div>
+</section>
