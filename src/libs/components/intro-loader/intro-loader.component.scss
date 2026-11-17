@@ -1,0 +1,71 @@
+.intro-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--surface-0);
+  overflow: hidden;
+
+  .intro-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(61, 123, 255, 0.25) 0%, transparent 55%);
+  }
+
+  .intro-flash {
+    position: absolute;
+    inset: 0;
+    background: #dbe8ff;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .intro-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .intro-mark {
+    width: 72px;
+    height: 72px;
+  }
+
+  .intro-brand {
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 7vw, 4.5rem);
+    font-weight: 900;
+    font-stretch: 125%;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .intro-progress {
+    width: min(260px, 60vw);
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+
+    .intro-progress-fill {
+      display: block;
+      height: 100%;
+      background: var(--gradient-electric);
+      box-shadow: 0 0 12px var(--accent-glow);
+      transform-origin: left center;
+    }
+  }
+
+  .intro-tagline {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+  }
+}
