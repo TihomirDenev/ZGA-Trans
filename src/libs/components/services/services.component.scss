@@ -1,0 +1,184 @@
+@use 'breakpoints' as *;
+@use 'section' as *;
+
+.services {
+  @include section-shell;
+
+  .eyebrow {
+    @include eyebrow;
+    margin: 0;
+  }
+
+  .section-title {
+    @include section-title;
+  }
+}
+
+.services-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-7);
+  margin-bottom: var(--space-8);
+
+  @include below-desktop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .services-intro {
+    max-width: 400px;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+  }
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  perspective: 1200px;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include phone {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Card ────────────────────────────────────────────────────────────────────
+.service-card {
+  --pointer-x: 50%;
+  --pointer-y: 0%;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface-1));
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base);
+
+  // Glowing light that follows the mouse
+  .service-card-spotlight {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      420px circle at var(--pointer-x) var(--pointer-y),
+      rgba(61, 123, 255, 0.22),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  // Border that lights up near the mouse
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: radial-gradient(
+      260px circle at var(--pointer-x) var(--pointer-y),
+      var(--accent-bright),
+      transparent 60%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+
+    .service-card-spotlight,
+    &::before {
+      opacity: 1;
+    }
+
+    .service-icon {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 30px var(--accent-glow);
+      transform: rotate(-8deg) scale(1.06);
+    }
+  }
+
+  .service-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+
+  .service-icon {
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    background: var(--accent-dim);
+    color: var(--accent-bright);
+    font-size: 1.45rem;
+    transition:
+      background var(--transition-base),
+      color var(--transition-base),
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  .service-index {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .service-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-stretch: 110%;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .service-description {
+    flex-grow: 1;
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .service-tag {
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+  }
+}

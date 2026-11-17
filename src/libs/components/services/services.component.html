@@ -1,0 +1,37 @@
+<section id="services" class="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div>
+        <p class="eyebrow">What we do</p>
+        <h2 class="section-title">Freight that moves <em>with purpose.</em></h2>
+      </div>
+
+      <p class="services-intro">
+        From a single pallet to a full 44-tonne load, we plan every job like it’s our own — the
+        right truck, the right route and a driver who cares about your cargo.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      @for (service of services; track service.id; let index = $index) {
+        <article class="service-card" (pointermove)="onCardPointerMove($event)">
+          <span class="service-card-spotlight" aria-hidden="true"></span>
+
+          <div class="service-card-top">
+            <span class="service-icon"><i class="bi {{ service.icon }}"></i></span>
+            <span class="service-index">0{{ index + 1 }}</span>
+          </div>
+
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-description">{{ service.description }}</p>
+
+          <ul class="service-tags">
+            @for (tag of service.tags; track tag) {
+              <li class="service-tag">{{ tag }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>
