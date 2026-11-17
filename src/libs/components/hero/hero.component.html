@@ -1,0 +1,62 @@
+<section class="hero">
+  <div class="hero-media">
+    <img
+      class="hero-image"
+      src="truck-hero.jpg"
+      alt="ZGA Trans Volvo FH truck with an electric-blue lightning livery at night"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="hero-overlay"></div>
+
+  <canvas #lightningCanvas class="hero-lightning" aria-hidden="true"></canvas>
+  <div class="hero-flash" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">
+      <span class="live-dot"></span>
+      Haulage across England · On the road 24/7
+    </p>
+
+    <h1 class="hero-title">
+      <span class="hero-title-line hero-title-split">Straight</span>
+      <span class="hero-title-line">
+        <span class="hero-title-split">to your</span>
+        <em class="hero-title-accent">
+          goals.
+          <span class="hero-arrow" aria-hidden="true"></span>
+        </em>
+      </span>
+    </h1>
+
+    <div class="hero-bottom">
+      <p class="hero-description">
+        <strong>See me ride. Your dreams come alive.</strong>
+        Full loads, part loads and express freight — moved from Cornwall to Northumberland by a team
+        that never stops until it’s delivered.
+      </p>
+
+      <div class="hero-actions">
+        <a
+          class="button button-primary"
+          href="#contact"
+          (click)="onSectionLinkClick($event, 'contact')"
+        >
+          Get a free quote <i class="bi bi-arrow-right"></i>
+        </a>
+        <a
+          class="button button-ghost"
+          href="#services"
+          (click)="onSectionLinkClick($event, 'services')"
+        >
+          Explore services
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+    Scroll to ride
+  </div>
+</section>
