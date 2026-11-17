@@ -2,13 +2,39 @@
 
 :host {
   --road-progress: 0;
+  --road-width: 16px;
+  --road-length: 46vh;
+  --truck-width: 10px;
+  --truck-height: 28px;
+
+  // Slimmer road on phones and tablets, so it fits inside the page gutter
+  @include below-desktop {
+    --road-width: 10px;
+    --road-length: 34vh;
+    --truck-width: 7px;
+    --truck-height: 20px;
+  }
 }
 
 .road-progress {
   position: fixed;
+  transition: opacity var(--transition-base);
+
+  // The journey section has its own progress bar and its cards reach the screen edge
+  @include below-desktop {
+    :host-context(.journey-is-active) & {
+      opacity: 0;
+    }
+  }
+
   top: 50%;
   right: 18px;
   z-index: 30;
+
+  @include below-desktop {
+    right: 5px;
+    gap: var(--space-1);
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,14 +42,14 @@
   transform: translateY(-50%);
   pointer-events: none;
 
-  @include below-desktop {
-    display: none;
-  }
-
   .road-start,
   .road-finish {
     font-size: 0.8rem;
     color: var(--text-muted);
+
+    @include below-desktop {
+      font-size: 0.6rem;
+    }
   }
 
   .road-finish {
@@ -34,8 +60,8 @@
 
 .road {
   position: relative;
-  width: 16px;
-  height: 46vh;
+  width: var(--road-width);
+  height: var(--road-length);
   border-radius: var(--radius-pill);
   background: linear-gradient(90deg, #0a0e1a, #141a2c 50%, #0a0e1a);
   box-shadow:
@@ -66,9 +92,9 @@
   .road-truck {
     position: absolute;
     left: 50%;
-    top: calc(var(--road-progress) * (100% - 28px));
-    width: 10px;
-    height: 28px;
+    top: calc(var(--road-progress) * (100% - var(--truck-height)));
+    width: var(--truck-width);
+    height: var(--truck-height);
     transform: translateX(-50%);
 
     svg {

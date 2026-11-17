@@ -5,7 +5,6 @@ import { NAV_LINKS } from '@libs/constants/navigation.constants';
 import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 
 const SCROLLED_THRESHOLD_PX = 40;
-const HIDE_AFTER_PX = 400;
 
 @Component({
   selector: 'app-header',
@@ -19,19 +18,11 @@ export class HeaderComponent {
 
   protected readonly navLinks = NAV_LINKS;
   protected readonly isScrolled = signal(false);
-  protected readonly isHidden = signal(false);
   protected readonly isMenuOpen = signal(false);
-
-  private lastScrollY: number = 0;
 
   @HostListener('window:scroll')
   onWindowScroll(): void {
-    const currentScrollY = window.scrollY;
-    const isScrollingDown = currentScrollY > this.lastScrollY;
-
-    this.isScrolled.set(currentScrollY > SCROLLED_THRESHOLD_PX);
-    this.isHidden.set(isScrollingDown && currentScrollY > HIDE_AFTER_PX && !this.isMenuOpen());
-    this.lastScrollY = currentScrollY;
+    this.isScrolled.set(window.scrollY > SCROLLED_THRESHOLD_PX);
   }
 
   @HostListener('document:keydown.escape')

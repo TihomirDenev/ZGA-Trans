@@ -6,9 +6,7 @@
   inset: 0 0 auto;
   z-index: 50;
   padding: var(--space-4) var(--gutter);
-  transition:
-    transform 500ms var(--ease-out),
-    padding var(--transition-base);
+  transition: padding var(--transition-base);
 
   .header-inner {
     display: flex;
@@ -30,10 +28,6 @@
     border-color: var(--border);
     box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(18px) saturate(1.4);
-  }
-
-  &.header-hidden {
-    transform: translateY(-120%);
   }
 
   @include phone {
