@@ -1,0 +1,63 @@
+<header
+  class="header"
+  [class.header-scrolled]="isScrolled()"
+  [class.header-hidden]="isHidden()"
+  [class.header-menu-open]="isMenuOpen()"
+>
+  <div class="header-inner">
+    <a class="logo" href="#" aria-label="ZGA Trans — back to top" (click)="onLogoClick($event)">
+      <app-brand-mark class="logo-mark" />
+      <span class="logo-text">ZGA <span class="logo-text-light">TRANS</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      @for (navLink of navLinks; track navLink.sectionId) {
+        <a
+          class="nav-link"
+          [href]="'#' + navLink.sectionId"
+          (click)="onNavLinkClick($event, navLink.sectionId)"
+        >
+          {{ navLink.label }}
+        </a>
+      }
+    </nav>
+
+    <a
+      class="button button-primary header-cta"
+      href="#contact"
+      (click)="onNavLinkClick($event, 'contact')"
+    >
+      Get a quote <i class="bi bi-arrow-right"></i>
+    </a>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-controls="mobile-menu"
+      aria-label="Toggle menu"
+      (click)="toggleMenu()"
+    >
+      <span class="menu-toggle-line"></span>
+      <span class="menu-toggle-line"></span>
+    </button>
+  </div>
+</header>
+
+<div id="mobile-menu" class="mobile-menu" [class.mobile-menu-open]="isMenuOpen()">
+  <nav class="mobile-nav" aria-label="Mobile">
+    @for (navLink of navLinks; track navLink.sectionId; let index = $index) {
+      <a
+        class="mobile-nav-link"
+        [href]="'#' + navLink.sectionId"
+        [style.transition-delay.ms]="isMenuOpen() ? 120 + index * 60 : 0"
+        (click)="onNavLinkClick($event, navLink.sectionId)"
+      >
+        <span class="mobile-nav-index">0{{ index + 1 }}</span>
+        {{ navLink.label }}
+      </a>
+    }
+  </nav>
+
+  <p class="mobile-menu-tagline">Straight to your goals.</p>
+</div>
