@@ -1,0 +1,44 @@
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-column">
+      <p class="footer-tagline">Straight to your goals.</p>
+      <p class="footer-text">Haulage across England, day and night.</p>
+    </div>
+
+    <nav class="footer-column" aria-label="Footer">
+      <p class="footer-heading">Explore</p>
+      @for (navLink of navLinks; track navLink.sectionId) {
+        <a
+          class="footer-link"
+          [href]="'#' + navLink.sectionId"
+          (click)="onNavLinkClick($event, navLink.sectionId)"
+        >
+          {{ navLink.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="footer-column">
+      <p class="footer-heading">Contact</p>
+      <a class="footer-link" [href]="companyPhoneLink">{{ companyPhone }}</a>
+      <a class="footer-link" [href]="'mailto:' + companyEmail">{{ companyEmail }}</a>
+    </div>
+
+    <button class="back-to-top" type="button" aria-label="Back to top" (click)="onBackToTopClick()">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+  </div>
+
+  <div class="footer-brand" aria-hidden="true">
+    <span class="footer-brand-outline">ZGA TRANS</span>
+    <span class="footer-brand-fill">ZGA TRANS</span>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© {{ year }} {{ companyLegalName }}. All rights reserved.</span>
+    <span>
+      Registered in England &amp; Wales · Company No. {{ companyRegistrationNumber }} ·
+      {{ companyRegisteredOffice }}
+    </span>
+  </div>
+</footer>
