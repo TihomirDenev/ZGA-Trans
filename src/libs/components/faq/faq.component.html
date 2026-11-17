@@ -1,0 +1,24 @@
+<section id="faq" class="faq">
+  <div class="section-inner faq-layout">
+    <div class="faq-heading">
+      <p class="eyebrow">FAQ</p>
+      <h2 class="section-title">Good <em>questions.</em></h2>
+      <p class="faq-intro">
+        The things people usually ask before their first booking. Can’t see yours? Just give us a
+        call.
+      </p>
+    </div>
+
+    <div class="faq-list">
+      @for (faqItem of faqItems; track faqItem.id; let index = $index) {
+        <details class="faq-item" name="faq" [open]="index === 0">
+          <summary class="faq-question">
+            <span>{{ faqItem.question }}</span>
+            <span class="faq-toggle" aria-hidden="true"></span>
+          </summary>
+          <p class="faq-answer">{{ faqItem.answer }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>

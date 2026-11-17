@@ -1,0 +1,189 @@
+@use 'breakpoints' as *;
+@use 'section' as *;
+
+.coverage {
+  @include section-shell;
+  overflow: hidden;
+
+  .eyebrow {
+    @include eyebrow;
+    margin: 0;
+  }
+
+  .section-title {
+    @include section-title;
+  }
+}
+
+.coverage-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
+
+  @include below-desktop {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+// ─── Text ────────────────────────────────────────────────────────────────────
+.coverage-intro {
+  max-width: 460px;
+  margin: var(--space-5) 0 var(--space-6);
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+}
+
+.coverage-regions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.coverage-region {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+
+  i {
+    font-size: 0.75rem;
+    color: var(--amber);
+  }
+}
+
+.coverage-roads {
+  margin: var(--space-6) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent-bright);
+
+  .coverage-roads-label {
+    display: block;
+    margin-bottom: var(--space-1);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+}
+
+// ─── Map ─────────────────────────────────────────────────────────────────────
+.coverage-map {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  justify-self: center;
+
+  // Soft blue glow behind England
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 10%;
+    background: radial-gradient(circle, rgba(61, 123, 255, 0.25), transparent 70%);
+    filter: blur(30px);
+  }
+
+  svg {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.coverage-land {
+  fill: url(#coverage-land);
+  stroke: var(--accent-bright);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.coverage-route-glow {
+  fill: none;
+  stroke: rgba(61, 123, 255, 0.25);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.coverage-route {
+  fill: none;
+  stroke: var(--accent-bright);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+
+// Amber "traffic" dots driving along each route forever
+.coverage-traffic {
+  fill: url(#coverage-traffic-glow);
+  offset-rotate: 0deg;
+  animation: coverage-traffic 7s linear infinite;
+
+  @for $index from 1 through 11 {
+    &:nth-of-type(#{$index}) {
+      animation-delay: -#{$index * 0.7}s;
+    }
+  }
+}
+
+.coverage-city-dot {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.coverage-city-pulse {
+  fill: none;
+  stroke: var(--accent-bright);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: coverage-pulse 2.6s ease-out infinite;
+}
+
+.coverage-city-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  fill: var(--text-secondary);
+  paint-order: stroke;
+  stroke: var(--surface-0);
+  stroke-width: 3px;
+}
+
+@keyframes coverage-traffic {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes coverage-pulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(3);
+  }
+}

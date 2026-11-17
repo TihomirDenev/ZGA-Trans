@@ -1,0 +1,62 @@
+<section id="coverage" class="coverage">
+  <div class="section-inner coverage-layout">
+    <div class="coverage-text">
+      <p class="eyebrow">Coverage</p>
+      <h2 class="section-title">Every corner of <em>England.</em></h2>
+      <p class="coverage-intro">
+        From Cornwall to Northumberland, city centres to industrial estates — one call covers it
+        all. We know the motorways, the A-roads and the loading bays in between.
+      </p>
+
+      <ul class="coverage-regions" aria-label="Regions we cover">
+        @for (region of regions; track region) {
+          <li class="coverage-region"><i class="bi bi-geo-alt-fill"></i> {{ region }}</li>
+        }
+      </ul>
+
+      <p class="coverage-roads">
+        <span class="coverage-roads-label">Our regular roads</span>
+        {{ roadNamesText }}
+      </p>
+    </div>
+
+    <div class="coverage-map">
+      <svg [attr.viewBox]="mapViewBox" role="img" aria-label="Map of England with our main routes">
+        <defs>
+          <radialGradient id="coverage-traffic-glow" r="0.5">
+            <stop offset="0" stop-color="#fff1d6" />
+            <stop offset="0.4" stop-color="#ffb057" />
+            <stop offset="1" stop-color="#ff8a1f" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="coverage-land" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#101a3a" />
+            <stop offset="1" stop-color="#070b18" />
+          </linearGradient>
+        </defs>
+
+        <path class="coverage-land" [attr.d]="englandOutlinePath" />
+
+        @for (route of routes; track route.id) {
+          <path class="coverage-route-glow" [attr.d]="route.path" />
+          <path class="coverage-route" pathLength="1" [attr.d]="route.path" />
+          <circle class="coverage-traffic" r="5" [style.offset-path]="route.trafficPath" />
+        }
+
+        @for (city of cities; track city.id) {
+          <g class="coverage-city">
+            <circle class="coverage-city-pulse" [attr.cx]="city.x" [attr.cy]="city.y" r="5" />
+            <circle class="coverage-city-dot" [attr.cx]="city.x" [attr.cy]="city.y" r="4" />
+            <text
+              class="coverage-city-label"
+              [attr.x]="city.labelSide === 'left' ? city.x - 8 : city.x + 8"
+              [attr.y]="city.y + 4"
+              [attr.text-anchor]="city.labelSide === 'left' ? 'end' : 'start'"
+            >
+              {{ city.name }}
+            </text>
+          </g>
+        }
+      </svg>
+    </div>
+  </div>
+</section>

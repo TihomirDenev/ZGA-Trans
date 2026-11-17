@@ -1,0 +1,63 @@
+<section id="fleet" class="fleet">
+  <div class="section-inner">
+    <div class="fleet-header">
+      <div>
+        <p class="eyebrow">Our fleet</p>
+        <h2 class="section-title">Built for the <em>long haul.</em></h2>
+      </div>
+      <p class="fleet-intro">
+        Modern trucks, well-kept trailers and the right kit for your load — maintained on a strict
+        schedule and checked before every run.
+      </p>
+    </div>
+
+    <div class="fleet-grid">
+      <figure class="fleet-photo">
+        <picture>
+          <source
+            type="image/avif"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            [attr.srcset]="truckPhotoAvifSrcset"
+          />
+          <source
+            type="image/webp"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            [attr.srcset]="truckPhotoWebpSrcset"
+          />
+          <img
+            class="fleet-photo-image"
+            alt="ZGA Trans Volvo FH with its lightning livery and Sagittarius artwork"
+            width="1024"
+            height="683"
+            loading="lazy"
+            decoding="async"
+            [src]="truckPhotoFallbackSrc"
+          />
+        </picture>
+        <figcaption class="fleet-photo-caption">
+          <span class="fleet-photo-label">On the road</span>
+          Our flagship — <em>see me ride.</em>
+        </figcaption>
+      </figure>
+
+      @for (fleetItem of fleetItems; track fleetItem.id) {
+        <article class="fleet-card">
+          <div class="fleet-card-top">
+            <span class="fleet-card-icon"><i class="bi {{ fleetItem.icon }}"></i></span>
+            <h3 class="fleet-card-title">{{ fleetItem.title }}</h3>
+          </div>
+          <p class="fleet-card-description">{{ fleetItem.description }}</p>
+
+          <dl class="fleet-specs">
+            @for (spec of fleetItem.specs; track spec.label) {
+              <div class="fleet-spec">
+                <dt>{{ spec.label }}</dt>
+                <dd>{{ spec.value }}</dd>
+              </div>
+            }
+          </dl>
+        </article>
+      }
+    </div>
+  </div>
+</section>

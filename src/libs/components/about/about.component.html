@@ -1,0 +1,31 @@
+<section id="about" class="about">
+  <div class="section-inner about-layout">
+    <figure class="about-emblem-card">
+      <div class="about-emblem-glow" aria-hidden="true"></div>
+      <app-brand-mark class="about-emblem" />
+      <blockquote class="about-quote">“{{ quote }}”</blockquote>
+      <figcaption class="about-quote-author">— {{ quoteAuthor }}</figcaption>
+    </figure>
+
+    <div class="about-content">
+      <p class="eyebrow">About us</p>
+      <h2 class="section-title">Small enough to care. <em>Big enough to deliver.</em></h2>
+
+      @for (paragraph of paragraphs; track $index) {
+        <p class="about-paragraph">{{ paragraph }}</p>
+      }
+
+      <ul class="about-values">
+        @for (companyValue of companyValues; track companyValue.id) {
+          <li class="about-value">
+            <span class="about-value-icon"><i class="bi {{ companyValue.icon }}"></i></span>
+            <div>
+              <h3 class="about-value-title">{{ companyValue.title }}</h3>
+              <p class="about-value-description">{{ companyValue.description }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
