@@ -1,7 +1,9 @@
 import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 import { CONTACT_CHANNELS, LOAD_TYPES } from '@libs/constants/contact.constants';
+import { PRIVACY_POLICY_PATH } from '@libs/constants/routes.constants';
 import { buildQuoteEmailLink } from '@libs/helpers/contact.helpers';
 import {
   createScopedAnimations,
@@ -13,7 +15,7 @@ import { QuoteRequest } from '@libs/models/contact.model';
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
@@ -24,6 +26,7 @@ export class ContactComponent {
 
   protected readonly contactChannels = CONTACT_CHANNELS;
   protected readonly loadTypes = LOAD_TYPES;
+  protected readonly privacyPolicyPath = PRIVACY_POLICY_PATH;
   protected readonly isSubmitted = signal(false);
 
   protected readonly quoteForm = this.formBuilder.nonNullable.group({

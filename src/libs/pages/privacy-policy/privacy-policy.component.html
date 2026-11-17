@@ -1,0 +1,52 @@
+<article class="policy">
+  <header class="policy-header">
+    <a class="policy-back" [routerLink]="homePath">
+      <i class="bi bi-arrow-left"></i> Back to ZGA Trans
+    </a>
+    <p class="eyebrow">Legal</p>
+    <h1 class="policy-title">Privacy <em>Policy</em></h1>
+    <p class="policy-updated">Last updated: {{ lastUpdated }}</p>
+  </header>
+
+  <div class="policy-layout">
+    <nav class="policy-contents" aria-label="On this page">
+      <p class="policy-contents-heading">On this page</p>
+      <ol class="policy-contents-list">
+        @for (section of policySections; track section.id) {
+          <li>
+            <a
+              class="policy-contents-link"
+              [href]="'#' + section.id"
+              (click)="onTableOfContentsClick($event, section.id)"
+            >
+              {{ section.heading }}
+            </a>
+          </li>
+        }
+      </ol>
+    </nav>
+
+    <div class="policy-body">
+      @for (section of policySections; track section.id; let index = $index) {
+        <section class="policy-section" [id]="section.id">
+          <h2 class="policy-section-heading">
+            <span class="policy-section-number">{{ index + 1 }}.</span>
+            {{ section.heading }}
+          </h2>
+
+          @for (paragraph of section.paragraphs; track $index) {
+            <p class="policy-paragraph">{{ paragraph }}</p>
+          }
+
+          @if (section.listItems) {
+            <ul class="policy-list">
+              @for (listItem of section.listItems; track $index) {
+                <li>{{ listItem }}</li>
+              }
+            </ul>
+          }
+        </section>
+      }
+    </div>
+  </div>
+</article>

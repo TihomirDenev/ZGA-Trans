@@ -1,4 +1,5 @@
 import { afterNextRender, Component, DestroyRef, ElementRef, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { gsap } from 'gsap';
 
@@ -10,22 +11,27 @@ import {
   COMPANY_REGISTRATION_NUMBER,
 } from '@libs/constants/contact.constants';
 import { NAV_LINKS } from '@libs/constants/navigation.constants';
+import { PRIVACY_POLICY_PATH } from '@libs/constants/routes.constants';
 import { createScopedAnimations, isReducedMotionPreferred } from '@libs/helpers/animation.helpers';
+import { SiteNavigationService } from '@libs/services/site-navigation.service';
 import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly siteNavigation = inject(SiteNavigationService);
   private readonly smoothScroll = inject(SmoothScrollService);
 
   protected readonly year = new Date().getFullYear();
   protected readonly navLinks = NAV_LINKS;
+  protected readonly privacyPolicyPath = PRIVACY_POLICY_PATH;
   protected readonly companyEmail = COMPANY_EMAIL;
   protected readonly companyPhone = COMPANY_PHONE;
   protected readonly companyLegalName = COMPANY_LEGAL_NAME;
@@ -47,7 +53,7 @@ export class FooterComponent {
 
   onNavLinkClick(event: Event, sectionId: string): void {
     event.preventDefault();
-    this.smoothScroll.scrollToSection(sectionId);
+    this.siteNavigation.goToSection(sectionId);
   }
 
   onBackToTopClick(): void {

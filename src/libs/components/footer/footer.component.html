@@ -10,7 +10,7 @@
       @for (navLink of navLinks; track navLink.sectionId) {
         <a
           class="footer-link"
-          [href]="'#' + navLink.sectionId"
+          [href]="'/#' + navLink.sectionId"
           (click)="onNavLinkClick($event, navLink.sectionId)"
         >
           {{ navLink.label }}
@@ -35,7 +35,10 @@
   </div>
 
   <div class="footer-bottom">
-    <span>© {{ year }} {{ companyLegalName }}. All rights reserved.</span>
+    <span>
+      © {{ year }} {{ companyLegalName }}. All rights reserved. ·
+      <a class="footer-legal-link" [routerLink]="privacyPolicyPath">Privacy Policy</a>
+    </span>
     <span>
       Registered in England &amp; Wales · Company No. {{ companyRegistrationNumber }} ·
       {{ companyRegisteredOffice }}
