@@ -1,26 +1,46 @@
-<svg class="truck" viewBox="0 0 820 220" role="img" aria-label="ZGA Trans truck">
+<svg class="truck" viewBox="0 0 960 240" role="img" aria-label="ZGA Trans truck">
   <defs>
     <linearGradient id="truck-trailer-paint" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0d1838" />
-      <stop offset="1" stop-color="#060a1a" />
+      <stop offset="0" stop-color="#11204a" />
+      <stop offset="0.55" stop-color="#0a1330" />
+      <stop offset="1" stop-color="#050916" />
     </linearGradient>
-    <linearGradient id="truck-cab-paint" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1a2d6b" />
+    <linearGradient id="truck-cab-paint" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#2a4596" />
+      <stop offset="0.45" stop-color="#14245a" />
       <stop offset="1" stop-color="#070c22" />
     </linearGradient>
-    <linearGradient id="truck-glass" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#9cc2ff" stop-opacity="0.75" />
-      <stop offset="1" stop-color="#1a2d6b" stop-opacity="0.9" />
-    </linearGradient>
-    <radialGradient id="truck-rim" cx="0.35" cy="0.35" r="0.8">
+    <linearGradient id="truck-chrome" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#f4f7ff" />
-      <stop offset="0.6" stop-color="#8f9ab3" />
+      <stop offset="0.35" stop-color="#8f9ab3" />
+      <stop offset="0.55" stop-color="#e6ebf5" />
+      <stop offset="1" stop-color="#4a5268" />
+    </linearGradient>
+    <linearGradient id="truck-chrome-vertical" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4a5268" />
+      <stop offset="0.4" stop-color="#f4f7ff" />
+      <stop offset="0.7" stop-color="#8f9ab3" />
       <stop offset="1" stop-color="#3b4359" />
+    </linearGradient>
+    <linearGradient id="truck-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9cc2ff" stop-opacity="0.8" />
+      <stop offset="0.5" stop-color="#2a4596" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#0a1330" />
+    </linearGradient>
+    <radialGradient id="truck-rim" cx="0.35" cy="0.3" r="0.85">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.5" stop-color="#b9c3d8" />
+      <stop offset="0.8" stop-color="#6c7794" />
+      <stop offset="1" stop-color="#2a3145" />
     </radialGradient>
     <linearGradient id="truck-beam" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#e6efff" stop-opacity="0.7" />
+      <stop offset="0" stop-color="#e6efff" stop-opacity="0.75" />
       <stop offset="1" stop-color="#e6efff" stop-opacity="0" />
     </linearGradient>
+    <radialGradient id="truck-brake" r="0.5">
+      <stop offset="0" stop-color="#ff2b3d" stop-opacity="0.9" />
+      <stop offset="1" stop-color="#ff2b3d" stop-opacity="0" />
+    </radialGradient>
     <filter id="truck-glow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="3" result="blur" />
       <feMerge>
@@ -33,94 +53,169 @@
     </filter>
   </defs>
 
-  <!-- Blue under-glow on the road -->
+  <!-- ─── Effects on the road ─────────────────────────────────────── -->
   <ellipse
     class="truck-underglow"
-    cx="410"
-    cy="204"
-    rx="410"
+    cx="480"
+    cy="226"
+    rx="470"
     ry="12"
     filter="url(#truck-soft-blur)"
   />
+  <path class="truck-beam" d="M908 134 L1320 90 L1320 238 Z" />
+  <ellipse class="truck-brake-glow" cx="10" cy="141" rx="46" ry="34" />
 
-  <!-- Headlight beam -->
-  <path class="truck-beam" d="M790 130 L1180 92 L1180 214 Z" />
+  <!-- ─── Exhaust smoke (engine is running) ───────────────────────── -->
+  <g class="truck-smoke">
+    <circle class="truck-smoke-puff" cx="651" cy="8" r="7" />
+    <circle class="truck-smoke-puff" cx="651" cy="8" r="7" />
+    <circle class="truck-smoke-puff" cx="651" cy="8" r="7" />
+    <circle class="truck-smoke-puff" cx="651" cy="8" r="7" />
+  </g>
 
   <g class="truck-body">
-    <!-- ─── Trailer ─────────────────────────────────────────────── -->
-    <rect class="trailer-chassis" x="40" y="148" width="564" height="12" rx="2" />
-    <rect class="trailer-leg" x="520" y="158" width="6" height="26" />
-    <rect class="trailer-box" x="10" y="32" width="594" height="118" rx="6" />
+    <!-- ═══ Trailer ═══════════════════════════════════════════════ -->
+    <rect class="trailer-chassis" x="30" y="160" width="612" height="10" />
+    <rect class="trailer-underride" x="10" y="176" width="44" height="6" rx="2" />
+    <rect class="trailer-leg" x="576" y="168" width="8" height="34" />
+    <rect class="trailer-leg" x="570" y="200" width="20" height="4" rx="1" />
+    <rect class="trailer-mudflap" x="236" y="176" width="6" height="40" rx="1" />
 
-    <g class="trailer-lightning" filter="url(#truck-glow)">
-      <path d="M60 32 L84 64 L70 70 L98 112 L86 118 L110 150" />
-      <path d="M250 32 L262 50 L254 54 L266 72" />
-      <path d="M420 32 L404 58 L420 64 L396 98" />
-      <path d="M570 150 L554 120 L568 114 L546 84" />
-      <path d="M520 32 L532 46 L524 50 L538 66" />
-    </g>
+    <rect class="trailer-box" x="8" y="24" width="628" height="136" rx="6" />
+    <rect class="trailer-shine" x="12" y="27" width="620" height="7" rx="3" />
 
-    <text class="trailer-slogan" x="307" y="70" text-anchor="middle">Straight to your goals.</text>
-    <text class="trailer-brand" x="307" y="118" text-anchor="middle">ZGA TRANS</text>
-
-    @for (lightX of trailerLightPositionsX; track lightX) {
-      <circle class="truck-marker-light" [attr.cx]="lightX" cy="38" r="2.4" />
-      <circle class="truck-marker-light" [attr.cx]="lightX" cy="144" r="2.4" />
+    @for (ribX of trailerRibPositionsX; track ribX) {
+      <line class="trailer-rib" [attr.x1]="ribX" y1="36" [attr.x2]="ribX" y2="152" />
     }
 
-    <rect class="truck-tail-light" x="8" y="126" width="5" height="16" rx="1.5" />
-
-    <!-- ─── Cab ─────────────────────────────────────────────────── -->
-    <g transform="translate(150 0)">
-      <path
-        class="cab-shell"
-        d="M462 168 L462 44 Q462 24 482 22 L596 18 Q610 18 614 32 L632 96 L644 104 L644 160 Q644 168 636 168 Z"
-      />
-      <path class="cab-door-line" d="M490 48 L490 160 M582 48 L590 160" />
-      <path class="cab-window" d="M496 50 H576 Q582 50 584 56 L598 96 H496 Z" />
-      <path class="cab-windscreen" d="M604 30 L614 30 L634 98 L622 100 Z" />
-      <rect class="cab-mirror" x="606" y="44" width="5" height="34" rx="2" />
-
-      <g class="cab-lightning" filter="url(#truck-glow)">
-        <path d="M470 110 L500 126 L490 132 L524 150" />
-        <path d="M612 104 L596 124 L606 128 L590 150" />
-      </g>
-
-      @for (lightX of cabRoofLightPositionsX; track lightX) {
-        <circle class="truck-marker-light" [attr.cx]="lightX" cy="27" r="2" />
-      }
-
-      <rect class="cab-fuel-tank" x="526" y="140" width="46" height="24" rx="6" />
-      <rect class="cab-bumper" x="620" y="148" width="30" height="22" rx="4" />
-      <rect class="cab-headlight" x="628" y="124" width="18" height="12" rx="3" />
-      <path class="cab-led-strip" d="M468 164 H520 M576 164 H620" />
+    <g class="trailer-lightning" filter="url(#truck-glow)">
+      <path d="M58 24 L84 60 L68 66 L100 112 L86 118 L112 160" />
+      <path d="M470 24 L452 54 L470 60 L444 98" />
+      <path d="M612 160 L594 126 L610 120 L586 88" />
+      <path d="M232 24 L246 44 L236 48 L252 70" />
     </g>
+
+    <text class="trailer-slogan" x="290" y="66" text-anchor="middle">Straight to your goals.</text>
+    <text class="trailer-brand" x="290" y="120" text-anchor="middle">ZGA TRANS</text>
+
+    <!-- Sagittarius emblem -->
+    <circle class="trailer-emblem-ring" cx="574" cy="92" r="38" />
+    <g class="trailer-emblem" transform="translate(544 62) scale(0.94)" filter="url(#truck-glow)">
+      <path d="M12 52 L50 14" />
+      <path d="M28 14 H50 V36" />
+      <path d="M19 31 L33 45" />
+    </g>
+
+    <path class="trailer-skirt" d="M246 168 H556 V186 Q556 190 552 190 H250 Q246 190 246 186 Z" />
+    <path class="truck-led-strip" d="M254 187 H548" />
+
+    @for (lightX of trailerLightPositionsX; track lightX) {
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="30" r="2.4" />
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="154" r="2.4" />
+    }
+
+    <rect class="truck-tail-light" x="5" y="128" width="7" height="26" rx="2" />
+    <rect class="truck-tail-light" x="5" y="36" width="6" height="10" rx="2" />
+
+    <!-- ═══ Tractor ═══════════════════════════════════════════════ -->
+    <rect class="tractor-chassis" x="640" y="160" width="250" height="14" />
+
+    <!-- V8 exhaust stack behind the cab -->
+    <rect class="tractor-exhaust" x="646" y="18" width="10" height="146" rx="3" />
+    <rect class="tractor-exhaust-cap" x="644" y="12" width="14" height="8" rx="2" />
+
+    <!-- Air horns and roof light bar -->
+    <rect class="tractor-chrome" x="694" y="9" width="44" height="5" rx="2.5" />
+    <rect class="tractor-chrome" x="700" y="4" width="32" height="4" rx="2" />
+    <rect class="tractor-light-bar" x="752" y="2" width="124" height="9" rx="4" />
+    @for (lampX of roofLampPositionsX; track lampX) {
+      <circle class="tractor-roof-lamp" [attr.cx]="lampX" cy="6.5" r="3.2" />
+    }
+
+    <!-- High cab -->
+    <path
+      class="tractor-cab"
+      d="M666 160 L666 42 Q666 18 692 16 L864 12 Q882 12 887 28 L900 146 Q901 160 888 160 Z"
+    />
+    <path class="tractor-lower-panel" d="M666 128 H897 L900 146 Q901 160 888 160 H666 Z" />
+    <path class="tractor-crease" d="M666 128 H897" />
+    <path class="tractor-front-trim" d="M887 28 L900 146" />
+    <path class="tractor-door-line" d="M754 34 V158" />
+    <path class="tractor-window" d="M760 36 H860 Q868 36 870 44 L880 108 H760 Z" />
+    <path class="tractor-window-shine" d="M776 36 H800 L782 108 H760 V94 Z" />
+    <path class="tractor-windscreen" d="M876 32 L888 32 L899 110 L886 112 Z" />
+    <rect class="tractor-chrome" x="828" y="118" width="20" height="3" rx="1.5" />
+
+    <!-- Sun visor with lamps -->
+    <path class="tractor-visor" d="M846 14 L896 13 Q901 13 900 19 L897 26 L852 28 Z" />
+    @for (lampX of visorLampPositionsX; track lampX) {
+      <circle class="truck-marker-light" [attr.cx]="lampX" cy="20" r="1.8" />
+    }
+    @for (lightX of roofEdgeLightPositionsX; track lightX) {
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="20" r="2" />
+    }
+
+    <!-- Big mirror -->
+    <path class="tractor-mirror-arm" d="M886 40 L892 38" />
+    <rect class="tractor-mirror" x="890" y="32" width="8" height="54" rx="3" />
+
+    <g class="tractor-lightning" filter="url(#truck-glow)">
+      <path d="M672 112 L704 128 L692 134 L730 156" />
+      <path d="M884 118 L866 136 L878 140 L858 158" />
+    </g>
+
+    <text class="tractor-badge" x="808" y="146">V8</text>
+
+    <!-- Fuel tank, step, bumper, lights -->
+    <rect class="tractor-fuel-tank" x="786" y="160" width="46" height="28" rx="9" />
+    <rect class="tractor-fuel-tank-shine" x="790" y="164" width="38" height="4" rx="2" />
+    <rect class="tractor-chrome" x="784" y="154" width="50" height="4" rx="2" />
+
+    <path class="tractor-bumper" d="M872 150 H906 Q912 150 912 158 V186 Q912 194 904 194 H872 Z" />
+    <rect class="tractor-chrome" x="878" y="166" width="32" height="3" rx="1.5" />
+    <circle class="tractor-fog-light" cx="902" cy="182" r="3.5" />
+    <path
+      class="tractor-headlight"
+      d="M884 126 H904 Q908 126 908 130 V138 Q908 142 904 142 H884 Z"
+    />
+    <path class="tractor-drl" d="M884 122 H906" />
+    <path class="truck-led-strip" d="M670 156 H780 M840 156 H884" />
 
     <!-- Wheel arches -->
     @for (wheelX of wheelPositionsX; track wheelX) {
-      <circle class="wheel-arch" [attr.cx]="wheelX" cy="176" r="30" />
+      <circle class="wheel-arch" [attr.cx]="wheelX" cy="197" r="32" />
     }
   </g>
 
-  <!-- ─── Wheels (rotated by the journey section) ───────────────── -->
+  <!-- ═══ Wheels (rotated by the journey section) ═══════════════════ -->
   @for (wheelX of wheelPositionsX; track wheelX) {
-    <g [attr.transform]="'translate(' + wheelX + ' 176)'">
+    <g [attr.transform]="'translate(' + wheelX + ' 197)'">
       <g class="truck-wheel">
-        <circle class="wheel-tyre" r="25" />
-        <circle class="wheel-tread" r="22.5" />
-        <circle class="wheel-rim" r="15" />
-        <circle class="wheel-rim-glow" r="15.5" />
-        @for (spokeAngle of wheelSpokeAngles; track spokeAngle) {
-          <line
-            class="wheel-spoke"
-            x1="0"
-            y1="4"
-            x2="0"
-            y2="13"
-            [attr.transform]="'rotate(' + spokeAngle + ')'"
+        <circle class="wheel-tyre" r="27" />
+        <circle class="wheel-tread" r="24.5" />
+        <circle class="wheel-sidewall" r="21" />
+        <circle class="wheel-rim" r="18" />
+        <circle class="wheel-rim-glow" r="18.5" />
+        @for (holeAngle of rimHoleAngles; track holeAngle) {
+          <circle
+            class="wheel-rim-hole"
+            cx="0"
+            cy="-12.5"
+            r="2.3"
+            [attr.transform]="'rotate(' + holeAngle + ')'"
           />
         }
-        <circle class="wheel-hub" r="4.5" />
+        <circle class="wheel-hub" r="7" />
+        @for (nutAngle of hubNutAngles; track nutAngle) {
+          <circle
+            class="wheel-nut"
+            cx="0"
+            cy="-4.6"
+            r="1.1"
+            [attr.transform]="'rotate(' + nutAngle + ')'"
+          />
+        }
+        <circle class="wheel-cap" r="2.4" />
       </g>
     </g>
   }

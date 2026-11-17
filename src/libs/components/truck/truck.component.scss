@@ -18,43 +18,38 @@
   mix-blend-mode: screen;
 }
 
-// ─── Trailer ─────────────────────────────────────────────────────────────────
-.trailer-box {
-  fill: url(#truck-trailer-paint);
-  stroke: var(--accent-bright);
-  stroke-width: 1.6;
+// Animated from the journey section when the scroll stops (the truck "brakes")
+.truck-brake-glow {
+  fill: url(#truck-brake);
+  opacity: 0;
+  mix-blend-mode: screen;
 }
 
-.trailer-chassis,
-.trailer-leg {
-  fill: #0b0f1c;
-}
+.truck-smoke-puff {
+  fill: rgba(190, 202, 230, 0.55);
+  filter: blur(2px);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: exhaust-puff 2.8s ease-out infinite;
 
-.trailer-lightning,
-.cab-lightning {
-  path {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 2;
-    stroke-linejoin: round;
-    opacity: 0.8;
+  &:nth-child(2) {
+    animation-delay: 0.7s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 1.4s;
+  }
+
+  &:nth-child(4) {
+    animation-delay: 2.1s;
   }
 }
 
-.trailer-brand {
-  font-family: var(--font-display);
-  font-size: 46px;
-  font-weight: 900;
-  font-stretch: 120%;
-  fill: #eef3ff;
-  letter-spacing: 1px;
-}
-
-.trailer-slogan {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-style: italic;
-  fill: var(--accent-soft);
+.truck-led-strip {
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px var(--accent));
 }
 
 .truck-marker-light {
@@ -67,51 +62,198 @@
   filter: drop-shadow(0 0 6px #ff2b3d);
 }
 
-// ─── Cab ─────────────────────────────────────────────────────────────────────
-.cab-shell {
+// ─── Trailer ─────────────────────────────────────────────────────────────────
+.trailer-box {
+  fill: url(#truck-trailer-paint);
+  stroke: var(--accent-bright);
+  stroke-width: 1.6;
+}
+
+.trailer-shine {
+  fill: rgba(255, 255, 255, 0.07);
+}
+
+.trailer-rib {
+  stroke: rgba(127, 176, 255, 0.07);
+  stroke-width: 2;
+}
+
+.trailer-chassis,
+.trailer-leg,
+.trailer-underride,
+.tractor-chassis {
+  fill: #0b0f1c;
+}
+
+.trailer-mudflap {
+  fill: #05070d;
+}
+
+.trailer-skirt {
+  fill: #070c1e;
+  stroke: rgba(127, 176, 255, 0.35);
+  stroke-width: 1;
+}
+
+.trailer-lightning,
+.tractor-lightning {
+  path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    opacity: 0.85;
+  }
+}
+
+.trailer-brand {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 900;
+  font-stretch: 122%;
+  fill: #eef3ff;
+  letter-spacing: 1px;
+}
+
+.trailer-slogan {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-style: italic;
+  fill: var(--accent-soft);
+}
+
+.trailer-emblem-ring {
+  fill: rgba(61, 123, 255, 0.08);
+  stroke: var(--accent-bright);
+  stroke-width: 1.5;
+}
+
+.trailer-emblem path {
+  fill: none;
+  stroke: var(--accent-soft);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+// ─── Tractor ─────────────────────────────────────────────────────────────────
+.tractor-cab {
   fill: url(#truck-cab-paint);
   stroke: var(--accent-bright);
   stroke-width: 1.6;
 }
 
-.cab-door-line {
+// Darker lower half of the cab, like a two-tone paint job
+.tractor-lower-panel {
+  fill: rgba(3, 5, 12, 0.45);
+}
+
+.tractor-crease {
+  stroke: url(#truck-chrome);
+  stroke-width: 1.5;
+  opacity: 0.7;
+}
+
+.tractor-front-trim {
+  stroke: url(#truck-chrome);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.tractor-door-line {
   fill: none;
   stroke: rgba(127, 176, 255, 0.25);
   stroke-width: 1;
 }
 
-.cab-window,
-.cab-windscreen {
+.tractor-window,
+.tractor-windscreen {
   fill: url(#truck-glass);
 }
 
-.cab-mirror {
+.tractor-window-shine {
+  fill: rgba(255, 255, 255, 0.12);
+}
+
+.tractor-chrome {
+  fill: url(#truck-chrome);
+}
+
+.tractor-exhaust {
+  fill: url(#truck-chrome-vertical);
+}
+
+.tractor-exhaust-cap {
+  fill: #2a3145;
+}
+
+.tractor-light-bar {
+  fill: #0b0f1c;
+  stroke: rgba(127, 176, 255, 0.5);
+  stroke-width: 1;
+}
+
+.tractor-roof-lamp {
+  fill: #fff;
+  filter: drop-shadow(0 0 4px #cfe0ff) drop-shadow(0 0 10px rgba(207, 224, 255, 0.6));
+}
+
+.tractor-visor {
   fill: #0b0f1c;
   stroke: var(--accent-bright);
   stroke-width: 1;
 }
 
-.cab-fuel-tank {
-  fill: #9aa4bb;
-  opacity: 0.85;
+.tractor-mirror-arm {
+  stroke: url(#truck-chrome);
+  stroke-width: 2.5;
+  stroke-linecap: round;
 }
 
-.cab-bumper {
+.tractor-mirror {
   fill: #0b0f1c;
   stroke: var(--accent-bright);
   stroke-width: 1;
 }
 
-.cab-headlight {
+.tractor-badge {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 900;
+  font-style: italic;
+  font-stretch: 120%;
+  fill: url(#truck-chrome);
+}
+
+.tractor-fuel-tank {
+  fill: url(#truck-chrome);
+}
+
+.tractor-fuel-tank-shine {
+  fill: rgba(255, 255, 255, 0.6);
+}
+
+.tractor-bumper {
+  fill: #0b0f1c;
+  stroke: var(--accent-bright);
+  stroke-width: 1.2;
+}
+
+.tractor-fog-light {
+  fill: var(--amber-bright);
+  filter: drop-shadow(0 0 5px var(--amber));
+}
+
+.tractor-headlight {
   fill: #fff;
   filter: drop-shadow(0 0 8px #cfe0ff);
 }
 
-.cab-led-strip {
-  stroke: var(--accent);
-  stroke-width: 3;
+.tractor-drl {
+  stroke: var(--accent-bright);
+  stroke-width: 2.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px var(--accent));
+  filter: drop-shadow(0 0 5px var(--accent));
 }
 
 .wheel-arch {
@@ -127,9 +269,15 @@
 
 .wheel-tread {
   fill: none;
-  stroke: #1a2032;
+  stroke: #161b2a;
   stroke-width: 4;
-  stroke-dasharray: 3 3;
+  stroke-dasharray: 3.5 3;
+}
+
+.wheel-sidewall {
+  fill: none;
+  stroke: #10141e;
+  stroke-width: 2;
 }
 
 .wheel-rim {
@@ -140,15 +288,39 @@
   fill: none;
   stroke: var(--accent);
   stroke-width: 1.5;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
-.wheel-spoke {
-  stroke: #3b4359;
-  stroke-width: 2.5;
-  stroke-linecap: round;
+.wheel-rim-hole {
+  fill: #1b2133;
 }
 
 .wheel-hub {
-  fill: #dfe5f2;
+  fill: url(#truck-rim);
+  stroke: #3b4359;
+  stroke-width: 1;
+}
+
+.wheel-nut {
+  fill: #3b4359;
+}
+
+.wheel-cap {
+  fill: #f4f7ff;
+}
+
+@keyframes exhaust-puff {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+
+  15% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-60px, -42px) scale(4);
+  }
 }
