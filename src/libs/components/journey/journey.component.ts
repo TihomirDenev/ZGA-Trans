@@ -1,4 +1,12 @@
-import { afterNextRender, Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  DOCUMENT,
+  ElementRef,
+  inject,
+  signal,
+} from '@angular/core';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -46,6 +54,7 @@ import { buildSkylinePath } from '@libs/helpers/skyline.helpers';
 export class JourneyComponent {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
 
   protected readonly journeySteps = JOURNEY_STEPS;
   protected readonly lampIndexes = Array.from({ length: JOURNEY_LAMP_COUNT }, (_, index) => index);
@@ -210,7 +219,7 @@ export class JourneyComponent {
   }
 
   private markJourneyAsActive(isActive: boolean): void {
-    document.body.classList.toggle(JOURNEY_ACTIVE_BODY_CLASS, isActive);
+    this.document.body.classList.toggle(JOURNEY_ACTIVE_BODY_CLASS, isActive);
   }
 
   private getScrollLengthMultiplier(): number {

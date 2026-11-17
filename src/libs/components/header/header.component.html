@@ -4,7 +4,7 @@
   [class.header-menu-open]="isMenuOpen()"
 >
   <div class="header-inner">
-    <a class="logo" href="#" aria-label="ZGA Trans — back to top" (click)="onLogoClick($event)">
+    <a class="logo" href="/" aria-label="ZGA Trans — back to top" (click)="onLogoClick($event)">
       <app-brand-mark class="logo-mark" />
       <span class="logo-text">ZGA <span class="logo-text-light">TRANS</span></span>
     </a>
@@ -13,7 +13,7 @@
       @for (navLink of navLinks; track navLink.sectionId) {
         <a
           class="nav-link"
-          [href]="'#' + navLink.sectionId"
+          [href]="'/#' + navLink.sectionId"
           (click)="onNavLinkClick($event, navLink.sectionId)"
         >
           {{ navLink.label }}
@@ -23,7 +23,7 @@
 
     <a
       class="button button-primary header-cta"
-      href="#contact"
+      href="/#contact"
       (click)="onNavLinkClick($event, 'contact')"
     >
       Get a quote <i class="bi bi-arrow-right"></i>
@@ -48,7 +48,7 @@
     @for (navLink of navLinks; track navLink.sectionId; let index = $index) {
       <a
         class="mobile-nav-link"
-        [href]="'#' + navLink.sectionId"
+        [href]="'/#' + navLink.sectionId"
         [style.transition-delay.ms]="isMenuOpen() ? 120 + index * 60 : 0"
         (click)="onNavLinkClick($event, navLink.sectionId)"
       >

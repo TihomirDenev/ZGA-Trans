@@ -18,6 +18,7 @@ export class SmoothScrollService {
     registerGsapPlugins();
     // Stops the pinned sections from jumping when the mobile address bar shows or hides
     ScrollTrigger.config({ ignoreMobileResize: true });
+
     if (!isReducedMotionPreferred()) {
       this.createLenis();
     }
@@ -33,7 +34,10 @@ export class SmoothScrollService {
     }
 
     if (this.lenis) {
-      this.lenis.scrollTo(section, { duration: 1.6 });
+      // The page may have just changed (e.g. coming from the Privacy Policy), so re-measure
+      // its height first — otherwise Lenis stops at the old page's bottom
+      this.lenis.resize();
+      this.lenis.scrollTo(section, { duration: 1.6, force: true });
       return;
     }
 
@@ -47,6 +51,22 @@ export class SmoothScrollService {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /** Instantly back to the top, used when switching pages */
+  jumpToTop(): void {
+    if (this.lenis) {
+      this.lenis.scrollTo(0, { immediate: true, force: true });
+      return;
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  /** Re-measures every scroll animation, e.g. after a new page has rendered */
+  refreshScrollTriggers(): void {
+    this.lenis?.resize();
+    ScrollTrigger.refresh();
   }
 
   stop(): void {

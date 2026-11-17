@@ -6,6 +6,7 @@ import { SplitText } from 'gsap/SplitText';
 import { BrandMarkComponent } from '@libs/components/brand-mark/brand-mark.component';
 import { INTRO_DURATION_SECONDS } from '@libs/constants/animation.constants';
 import { createScopedAnimations, isReducedMotionPreferred } from '@libs/helpers/animation.helpers';
+import { IntroStateService } from '@libs/services/intro-state.service';
 import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class IntroLoaderComponent {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
   private readonly smoothScroll = inject(SmoothScrollService);
+  private readonly introState = inject(IntroStateService);
 
   protected readonly isFinished = signal(false);
 
@@ -31,6 +33,7 @@ export class IntroLoaderComponent {
 
     if (isReducedMotionPreferred()) {
       this.isFinished.set(true);
+      this.introState.markIntroFinished();
       return;
     }
 
@@ -42,7 +45,7 @@ export class IntroLoaderComponent {
   }
 
   private buildIntroTimeline(): void {
-    const brandLetters = SplitText.create('.intro-brand', { type: 'chars' });
+    const brandLetters = SplitText.create('.intro-brand', { type: 'chars', aria: 'hidden' });
     const exitStartTime = INTRO_DURATION_SECONDS - 0.8;
 
     const introTimeline = gsap.timeline({
@@ -85,6 +88,7 @@ export class IntroLoaderComponent {
 
   private finishIntro(): void {
     this.isFinished.set(true);
+    this.introState.markIntroFinished();
     this.smoothScroll.start();
   }
 
