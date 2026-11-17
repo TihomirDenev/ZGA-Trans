@@ -1,0 +1,45 @@
+// ─── Breakpoints ─────────────────────────────────────────────────────────────
+// Three ranges: phone, tablet, desktop.
+//   phone   : up to 599px
+//   tablet  : 600px – 1023px
+//   desktop : 1024px and up
+
+$bp-phone-max: 599px;
+$bp-tablet-min: 600px;
+$bp-tablet-max: 1023px;
+$bp-desktop-min: 1024px;
+
+// Target phones only
+@mixin phone {
+  @media (max-width: $bp-phone-max) {
+    @content;
+  }
+}
+
+// Target tablets only
+@mixin tablet {
+  @media (min-width: $bp-tablet-min) and (max-width: $bp-tablet-max) {
+    @content;
+  }
+}
+
+// Target desktop and up
+@mixin desktop {
+  @media (min-width: $bp-desktop-min) {
+    @content;
+  }
+}
+
+// Phone + tablet (anything below desktop)
+@mixin below-desktop {
+  @media (max-width: $bp-tablet-max) {
+    @content;
+  }
+}
+
+// Tablet + desktop (anything above phone)
+@mixin above-phone {
+  @media (min-width: $bp-tablet-min) {
+    @content;
+  }
+}

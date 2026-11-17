@@ -1,0 +1,74 @@
+// ─── Design Tokens ───────────────────────────────────────────────────────────
+// Night-drive theme for ZGA Trans: deep navy, electric blue lightning, amber marker lights
+
+:root {
+  color-scheme: dark;
+
+  // ─── Surfaces ─────────────────────────────────────────────────────────────
+  --surface-0: #03050c; // page background (night sky)
+  --surface-1: #070b18; // section background
+  --surface-2: #0c1328; // cards
+  --surface-3: #131c3a; // hover / inset
+  --border: rgba(120, 160, 255, 0.12);
+  --border-strong: rgba(120, 160, 255, 0.28);
+
+  // ─── Electric blue (lightning) ────────────────────────────────────────────
+  --accent: #3d7bff;
+  --accent-bright: #7fb0ff;
+  --accent-soft: #b9d2ff;
+  --accent-dim: rgba(61, 123, 255, 0.14);
+  --accent-glow: rgba(61, 123, 255, 0.55);
+
+  // ─── Amber (marker lights) ────────────────────────────────────────────────
+  --amber: #ff8a1f;
+  --amber-bright: #ffb057;
+  --amber-glow: rgba(255, 138, 31, 0.55);
+
+  // ─── Text ─────────────────────────────────────────────────────────────────
+  --text-primary: #eef3ff;
+  --text-secondary: #a9b5d6;
+  --text-muted: #6c7899;
+
+  // ─── Gradients ────────────────────────────────────────────────────────────
+  --gradient-electric: linear-gradient(120deg, #b9d2ff 0%, #3d7bff 45%, #7fb0ff 100%);
+  --gradient-amber: linear-gradient(120deg, #ffb057 0%, #ff8a1f 100%);
+
+  // ─── Typography ───────────────────────────────────────────────────────────
+  --font-display: 'Archivo Variable', system-ui, sans-serif;
+  --font-sans: 'Inter Variable', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+
+  // ─── Spacing ──────────────────────────────────────────────────────────────
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 9rem;
+
+  // ─── Layout ───────────────────────────────────────────────────────────────
+  --content-width: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-height: 76px;
+
+  // ─── Radius ───────────────────────────────────────────────────────────────
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  // ─── Motion ───────────────────────────────────────────────────────────────
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 180ms var(--ease-out);
+  --transition-base: 320ms var(--ease-out);
+}
