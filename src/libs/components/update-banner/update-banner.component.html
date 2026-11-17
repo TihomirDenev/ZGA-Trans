@@ -1,0 +1,12 @@
+@if (isUpdateReady()) {
+  <div class="update-banner" role="status">
+    <i class="bi bi-stars update-banner-icon"></i>
+    <span class="update-banner-text">A new version of ZGA Trans is ready.</span>
+    <button class="button button-primary update-banner-reload" type="button" (click)="onReload()">
+      Refresh
+    </button>
+    <button class="update-banner-close" type="button" aria-label="Dismiss" (click)="onDismiss()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+}
