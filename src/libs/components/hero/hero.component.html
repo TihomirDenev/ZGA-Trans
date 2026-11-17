@@ -1,11 +1,18 @@
 <section class="hero">
   <div class="hero-media">
-    <img
-      class="hero-image"
-      src="truck-hero.jpg"
-      alt="ZGA Trans Volvo FH truck with an electric-blue lightning livery at night"
-      fetchpriority="high"
-    />
+    <picture>
+      <source type="image/avif" [attr.srcset]="truckPhotoAvifSrcset" sizes="100vw" />
+      <source type="image/webp" [attr.srcset]="truckPhotoWebpSrcset" sizes="100vw" />
+      <img
+        class="hero-image"
+        alt="ZGA Trans Volvo FH truck with an electric-blue lightning livery at night"
+        width="1024"
+        height="683"
+        fetchpriority="high"
+        decoding="async"
+        [src]="truckPhotoFallbackSrc"
+      />
+    </picture>
   </div>
   <div class="hero-overlay"></div>
 
@@ -18,7 +25,7 @@
       Haulage across England · On the road 24/7
     </p>
 
-    <h1 class="hero-title">
+    <h1 class="hero-title" aria-label="Straight to your goals.">
       <span class="hero-title-line hero-title-split">Straight</span>
       <span class="hero-title-line">
         <span class="hero-title-split">to your</span>

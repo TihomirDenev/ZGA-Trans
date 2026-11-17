@@ -37,6 +37,13 @@
       <stop offset="0" stop-color="#e6efff" stop-opacity="0.75" />
       <stop offset="1" stop-color="#e6efff" stop-opacity="0" />
     </linearGradient>
+    <!-- Glowing amber marker light, drawn with a gradient instead of a costly CSS filter -->
+    <radialGradient id="truck-marker-glow" r="0.5">
+      <stop offset="0" stop-color="#fff1d6" />
+      <stop offset="0.35" stop-color="#ffb057" />
+      <stop offset="0.6" stop-color="#ff8a1f" stop-opacity="0.45" />
+      <stop offset="1" stop-color="#ff8a1f" stop-opacity="0" />
+    </radialGradient>
     <radialGradient id="truck-brake" r="0.5">
       <stop offset="0" stop-color="#ff2b3d" stop-opacity="0.9" />
       <stop offset="1" stop-color="#ff2b3d" stop-opacity="0" />
@@ -110,8 +117,8 @@
     <path class="truck-led-strip" d="M254 187 H548" />
 
     @for (lightX of trailerLightPositionsX; track lightX) {
-      <circle class="truck-marker-light" [attr.cx]="lightX" cy="30" r="2.4" />
-      <circle class="truck-marker-light" [attr.cx]="lightX" cy="154" r="2.4" />
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="30" r="5" />
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="154" r="5" />
     }
 
     <rect class="truck-tail-light" x="5" y="128" width="7" height="26" rx="2" />
@@ -149,10 +156,10 @@
     <!-- Sun visor with lamps -->
     <path class="tractor-visor" d="M846 14 L896 13 Q901 13 900 19 L897 26 L852 28 Z" />
     @for (lampX of visorLampPositionsX; track lampX) {
-      <circle class="truck-marker-light" [attr.cx]="lampX" cy="20" r="1.8" />
+      <circle class="truck-marker-light" [attr.cx]="lampX" cy="20" r="3.6" />
     }
     @for (lightX of roofEdgeLightPositionsX; track lightX) {
-      <circle class="truck-marker-light" [attr.cx]="lightX" cy="20" r="2" />
+      <circle class="truck-marker-light" [attr.cx]="lightX" cy="20" r="4" />
     }
 
     <!-- Big mirror -->

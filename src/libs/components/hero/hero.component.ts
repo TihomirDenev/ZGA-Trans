@@ -2,6 +2,7 @@ import {
   afterNextRender,
   Component,
   DestroyRef,
+  DOCUMENT,
   ElementRef,
   HostListener,
   inject,
@@ -18,12 +19,18 @@ import {
   LIGHTNING_MIN_DELAY_SECONDS,
 } from '@libs/constants/animation.constants';
 import {
+  TRUCK_PHOTO_AVIF_SRCSET,
+  TRUCK_PHOTO_FALLBACK_SRC,
+  TRUCK_PHOTO_WEBP_SRCSET,
+} from '@libs/constants/images.constants';
+import {
   createScopedAnimations,
   getRandomNumberBetween,
   isReducedMotionPreferred,
 } from '@libs/helpers/animation.helpers';
 import { buildLightningStrike, drawLightningStrike } from '@libs/helpers/lightning.helpers';
 import { LightningBranch } from '@libs/models/lightning.model';
+import { IntroStateService } from '@libs/services/intro-state.service';
 import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 
 @Component({
@@ -35,15 +42,22 @@ import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 export class HeroComponent {
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
   private readonly smoothScroll = inject(SmoothScrollService);
+  private readonly introState = inject(IntroStateService);
   private readonly lightningCanvas =
     viewChild.required<ElementRef<HTMLCanvasElement>>('lightningCanvas');
 
   private canvasContext: CanvasRenderingContext2D | null = null;
   private isHeroVisible: boolean = true;
+  protected readonly truckPhotoAvifSrcset = TRUCK_PHOTO_AVIF_SRCSET;
+  protected readonly truckPhotoWebpSrcset = TRUCK_PHOTO_WEBP_SRCSET;
+  protected readonly truckPhotoFallbackSrc = TRUCK_PHOTO_FALLBACK_SRC;
+
   private nextLightningStrike: gsap.core.Tween | null = null;
 
   constructor() {
+    this.preloadHeroImage();
     afterNextRender(() => this.initAnimations());
     this.destroyRef.onDestroy(() => this.nextLightningStrike?.kill());
   }
@@ -56,6 +70,28 @@ export class HeroComponent {
   onSectionLinkClick(event: Event, sectionId: string): void {
     event.preventDefault();
     this.smoothScroll.scrollToSection(sectionId);
+  }
+
+  /**
+   * Tells the browser to start downloading the hero photo straight away. Added from here
+   * (and prerendered) so only the home page preloads it, not the Privacy Policy or 404 page.
+   */
+  private preloadHeroImage(): void {
+    const isAlreadyPreloaded = this.document.head.querySelector('link[data-hero-preload]');
+
+    if (isAlreadyPreloaded) {
+      return;
+    }
+
+    const preloadLink = this.document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'image';
+    preloadLink.type = 'image/avif';
+    preloadLink.setAttribute('imagesrcset', TRUCK_PHOTO_AVIF_SRCSET);
+    preloadLink.setAttribute('imagesizes', '100vw');
+    preloadLink.setAttribute('fetchpriority', 'high');
+    preloadLink.setAttribute('data-hero-preload', '');
+    this.document.head.appendChild(preloadLink);
   }
 
   private initAnimations(): void {
@@ -74,10 +110,12 @@ export class HeroComponent {
   // ─── Entrance ──────────────────────────────────────────────────────────────
 
   private buildEntranceTimeline(): void {
-    const titleLetters = SplitText.create('.hero-title-split', { type: 'chars' });
+    const titleLetters = SplitText.create('.hero-title-split', { type: 'chars', aria: 'hidden' });
+    // Wait for the intro loader on the first visit; coming back from another page, start right away
+    const entranceDelay = this.introState.isIntroFinished() ? 0.1 : INTRO_DURATION_SECONDS - 0.6;
 
     gsap
-      .timeline({ delay: INTRO_DURATION_SECONDS - 0.6, defaults: { ease: 'power4.out' } })
+      .timeline({ delay: entranceDelay, defaults: { ease: 'power4.out' } })
       .from('.hero-image', { scale: 1.35, opacity: 0, duration: 2.2, ease: 'expo.out' })
       .from('.hero-eyebrow', { opacity: 0, y: 20, duration: 0.8 }, 0.3)
       .from(

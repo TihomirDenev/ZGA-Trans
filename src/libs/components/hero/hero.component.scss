@@ -21,12 +21,15 @@
   z-index: -3;
   transform-origin: center bottom;
 
+  picture {
+    display: contents;
+  }
+
   .hero-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: 50% 40%;
-    filter: saturate(1.15) contrast(1.05);
 
     @include phone {
       object-position: 30% 50%;
@@ -56,7 +59,6 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  mix-blend-mode: screen;
 }
 
 .hero-flash {
@@ -71,7 +73,6 @@
   );
   opacity: 0;
   pointer-events: none;
-  mix-blend-mode: screen;
 }
 
 // ─── Content ─────────────────────────────────────────────────────────────────
