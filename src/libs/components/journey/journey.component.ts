@@ -14,6 +14,7 @@ import {
   JOURNEY_TRUCK_FULL_SPEED_VELOCITY,
   JOURNEY_TRUCK_MAX_LEAD_DESKTOP,
   JOURNEY_TRUCK_MAX_LEAD_PHONE,
+  VERGE_PARALLAX_SPEED,
 } from '@libs/constants/animation.constants';
 import {
   JOURNEY_STEPS,
@@ -120,6 +121,11 @@ export class JourneyComponent {
         0,
       )
       .to('.journey-skyline', { xPercent: -30, duration: 1 }, 0)
+      .to(
+        '.journey-verge',
+        { '--verge-offset': () => `${-getDriveDistance() * VERGE_PARALLAX_SPEED}px`, duration: 1 },
+        0,
+      )
       .to('.journey-progress-fill', { scaleX: 1, duration: 1 }, 0)
       .to(
         '.truck-body',
@@ -164,7 +170,9 @@ export class JourneyComponent {
       duration: 0.6,
       ease: 'power2.out',
       overwrite: 'auto',
+      // Only runs when the scroll has stopped (each new scroll update replaces this tween)
       onComplete: () => {
+        this.flashBrakeLights();
         gsap.to('.journey-truck', { x: 0, duration: 1.4, ease: 'power3.inOut', overwrite: 'auto' });
       },
     });
@@ -177,6 +185,14 @@ export class JourneyComponent {
         gsap.to('.journey-speed-lines', { opacity: 0, duration: 0.8, overwrite: 'auto' });
       },
     });
+  }
+
+  /** The truck "brakes" when you stop scrolling: the tail lights flare up, then fade */
+  private flashBrakeLights(): void {
+    gsap
+      .timeline()
+      .to('.truck-brake-glow', { opacity: 1, duration: 0.12, overwrite: 'auto' })
+      .to('.truck-brake-glow', { opacity: 0, duration: 0.9, delay: 0.6 });
   }
 
   /**

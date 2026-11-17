@@ -19,6 +19,9 @@ export const JOURNEY_SCROLL_LENGTH_DESKTOP: number = 1;
 export const JOURNEY_TRUCK_MAX_LEAD_PHONE: number = 0.16;
 export const JOURNEY_TRUCK_MAX_LEAD_DESKTOP: number = 0.08;
 
+/** The roadside is closer to the camera than the road, so it slides past a bit faster */
+export const VERGE_PARALLAX_SPEED: number = 1.2;
+
 /** Added to <body> while the journey section is pinned, so other UI can step aside */
 export const JOURNEY_ACTIVE_BODY_CLASS: string = 'journey-is-active';
 

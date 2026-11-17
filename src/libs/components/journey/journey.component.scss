@@ -3,7 +3,7 @@
 
 .journey {
   --road-height: 110px;
-  --truck-width: clamp(320px, min(44vw, 66svh), 720px);
+  --truck-width: clamp(340px, min(50vw, 76svh), 820px);
   --post-height: calc(var(--truck-width) * 0.25 - var(--road-height) * 0.72 + 18px);
   --stop-gap: 52vw;
   --start-offset: 85vw;
@@ -26,13 +26,10 @@
 
   @include phone {
     --road-height: 92px;
-    --truck-width: 60vw;
+    --truck-width: 74vw;
     --stop-gap: 92vw;
     --start-offset: 105vw;
     --finish-tail: 90vw;
-
-    // The space under the road reads as the dark roadside verge
-    background: linear-gradient(to bottom, var(--surface-0) 0%, var(--surface-1) 55%, #04060d 70%);
   }
 
   .eyebrow {
@@ -42,7 +39,7 @@
 
   .section-title {
     @include section-title;
-    font-size: clamp(2.2rem, 5vw, 4.4rem);
+    font-size: clamp(2.2rem, 3.8vw, 3.4rem);
 
     @include phone {
       font-size: 2rem;
@@ -301,7 +298,7 @@
 
   .journey-card-number {
     font-family: var(--font-display);
-    font-size: 2.6rem;
+    font-size: 2.2rem;
     font-weight: 900;
     font-stretch: 120%;
     line-height: 1;
@@ -323,7 +320,7 @@
   .journey-card-title {
     margin: var(--space-3) 0 0;
     font-family: var(--font-display);
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     font-weight: 900;
     font-stretch: 115%;
     line-height: 1;
@@ -413,7 +410,7 @@
     width: max-content;
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(2.4rem, 4.6vw, 4.6rem);
+    font-size: clamp(2.2rem, 3.8vw, 3.6rem);
     font-weight: 900;
     font-stretch: 120%;
     line-height: 0.9;
@@ -473,6 +470,76 @@
     mask-image: linear-gradient(to left, #000, transparent);
     opacity: 0;
     pointer-events: none;
+  }
+}
+
+// ─── Roadside verge (phones) ─────────────────────────────────────────────────
+// Kerb, crash barrier with reflectors, and grass. Every layer repeats sideways and is
+// shifted by --verge-offset, which the drive timeline animates in sync with the road.
+.journey-verge {
+  --verge-offset: 0px;
+
+  display: none;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #0a1a14, #05090c 70%, #03050c);
+
+  @include phone {
+    display: flex;
+  }
+
+  .journey-verge-kerb {
+    flex-shrink: 0;
+    height: 8px;
+    background: repeating-linear-gradient(90deg, #3a4258 0 46px, #1d2333 46px 48px);
+    background-position: var(--verge-offset) 0;
+    box-shadow:
+      inset 0 2px 0 rgba(255, 255, 255, 0.14),
+      0 4px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .journey-verge-barrier {
+    flex-shrink: 0;
+    height: 32px;
+    margin-top: 8px;
+    background:
+      // amber reflectors on every post
+      radial-gradient(
+        circle at 34px 7px,
+        #ffb057 0 2.2px,
+        rgba(255, 138, 31, 0.35) 3.5px,
+        transparent 6px
+      ),
+      // steel rail with two grooves
+      linear-gradient(
+          to bottom,
+          transparent 0 2px,
+          #b9c3d8 2px 3px,
+          #5a647d 3px 7px,
+          #9aa4bb 7px 8px,
+          #3b4359 8px 12px,
+          #c9d1e2 12px 13px,
+          transparent 13px
+        ),
+      // posts
+      linear-gradient(90deg, transparent 0 31px, #262d40 31px 37px, transparent 37px);
+    background-size: 68px 100%;
+    background-position: var(--verge-offset) 0;
+  }
+
+  .journey-verge-grass {
+    flex: 1 1 auto;
+    min-height: 0;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='70'%3E%3Cpath d='M30 70 Q22 38 52 36 Q62 14 90 28 Q114 16 122 42 Q144 46 136 70Z' fill='%23081c14' stroke='%23153a29' stroke-width='1.5'/%3E%3Ccircle cx='70' cy='40' r='1.6' fill='%23ffb057' opacity='.7'/%3E%3Cpath d='M300 70 Q296 50 318 48 Q330 34 348 46 Q364 50 358 70Z' fill='%23071812' stroke='%23123224' stroke-width='1.5'/%3E%3C/svg%3E")
+        0 6px / 460px 70px repeat-x,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='26'%3E%3Cpath d='M6 26 L4 13 M10 26 L12 10 M14 26 L13 17 M40 26 L38 15 M44 26 L47 8 M48 26 L49 18 M80 26 L77 14 M85 26 L86 7 M90 26 L93 16 M108 26 L106 17 M112 26 L114 12' stroke='%231f4d33' stroke-width='2' stroke-linecap='round' fill='none'/%3E%3C/svg%3E")
+        0 0 / 120px 26px repeat-x;
+    background-position:
+      calc(var(--verge-offset) * 1.1) 6px,
+      var(--verge-offset) 0;
   }
 }
 
