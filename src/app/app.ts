@@ -1,11 +1,30 @@
-import { Component, signal } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
+
+import { HeaderComponent } from '@libs/components/header/header.component';
+import { FooterComponent } from '@libs/components/footer/footer.component';
+import { IntroLoaderComponent } from '@libs/components/intro-loader/intro-loader.component';
+import { UpdateBannerComponent } from '@libs/components/update-banner/update-banner.component';
+import { RoadProgressComponent } from '@libs/components/road-progress/road-progress.component';
+import { HomeComponent } from '@libs/pages/home/home.component';
+import { SmoothScrollService } from '@libs/services/smooth-scroll.service';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  standalone: true,
+  imports: [
+    HeaderComponent,
+    FooterComponent,
+    IntroLoaderComponent,
+    RoadProgressComponent,
+    HomeComponent,
+    UpdateBannerComponent,
+  ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('zga-trans');
+  private readonly smoothScroll = inject(SmoothScrollService);
+
+  constructor() {
+    afterNextRender(() => this.smoothScroll.init());
+  }
 }
