@@ -163,10 +163,16 @@ body::after {
   background: var(--accent);
   color: #fff;
   font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
   transform: translateY(-200%);
-  transition: transform var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
 
   &:focus {
+    opacity: 1;
+    pointer-events: auto;
     transform: none;
   }
 }
