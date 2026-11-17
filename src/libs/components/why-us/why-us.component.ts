@@ -54,10 +54,10 @@ export class WhyUsComponent {
   private rollTyreWithScroll(): void {
     gsap.fromTo(
       '.why-us-tyre',
-      { rotation: 0, yPercent: -10 },
+      { rotation: 0, yPercent: -6 },
       {
         rotation: 360 * BIG_TYRE_TURNS,
-        yPercent: 10,
+        yPercent: 6,
         ease: 'none',
         scrollTrigger: { trigger: '.why-us', start: 'top bottom', end: 'bottom top', scrub: true },
       },
