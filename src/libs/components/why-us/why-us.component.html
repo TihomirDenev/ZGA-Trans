@@ -1,0 +1,31 @@
+<section id="why-us" class="why-us">
+  <div class="why-us-tyre">
+    <app-tyre />
+  </div>
+
+  <div class="section-inner">
+    <p class="eyebrow">Why ZGA Trans</p>
+
+    <p class="manifesto">
+      @for (word of manifestoWords; track $index) {
+        <span class="manifesto-word" [class.manifesto-word-accent]="word.isAccent">{{
+          word.text
+        }}</span>
+        {{ ' ' }}
+      }
+    </p>
+
+    <div class="stats">
+      @for (stat of stats; track stat.id) {
+        <div class="stat">
+          <p class="stat-value">
+            <span class="stat-number">{{ stat.value }}</span><span class="stat-suffix">{{
+              stat.suffix
+            }}</span>
+          </p>
+          <p class="stat-label">{{ stat.label }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

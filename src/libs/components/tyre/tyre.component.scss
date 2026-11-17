@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+.tyre {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.tyre-tread-block {
+  fill: #0b0e17;
+  stroke: #1d2438;
+  stroke-width: 1.5;
+}
+
+.tyre-rubber {
+  fill: url(#tyre-rubber);
+}
+
+.tyre-sidewall-ring {
+  fill: none;
+  stroke: rgba(127, 176, 255, 0.12);
+  stroke-width: 1.5;
+}
+
+.tyre-sidewall-text {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  fill: rgba(185, 210, 255, 0.4);
+}
+
+.tyre-rim {
+  fill: url(#tyre-rim-metal);
+}
+
+.tyre-rim-glow {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px var(--accent)) drop-shadow(0 0 30px var(--accent-glow));
+}
+
+.tyre-rim-inner {
+  fill: #0a0e1a;
+}
+
+.tyre-spoke {
+  fill: url(#tyre-rim-metal);
+  stroke: rgba(0, 0, 0, 0.5);
+  stroke-width: 1;
+}
+
+.tyre-hub {
+  fill: #2a3145;
+  stroke: #8f9ab3;
+  stroke-width: 2;
+}
+
+.tyre-lug-nut {
+  fill: #c9d1e2;
+}
+
+.tyre-hub-cap {
+  fill: #0a0e1a;
+  stroke: var(--accent-bright);
+  stroke-width: 1.5;
+}
+
+.tyre-hub-bolt {
+  fill: var(--accent-bright);
+}

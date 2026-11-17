@@ -1,0 +1,65 @@
+<svg class="tyre" viewBox="-210 -210 420 420" aria-hidden="true">
+  <defs>
+    <radialGradient id="tyre-rubber" r="0.5">
+      <stop offset="0.6" stop-color="#05070c" />
+      <stop offset="0.9" stop-color="#121725" />
+      <stop offset="1" stop-color="#07090f" />
+    </radialGradient>
+    <radialGradient id="tyre-rim-metal" cx="0.35" cy="0.3" r="0.9">
+      <stop offset="0" stop-color="#f4f7ff" />
+      <stop offset="0.45" stop-color="#8f9ab3" />
+      <stop offset="1" stop-color="#2a3145" />
+    </radialGradient>
+    <path id="tyre-text-path" d="M0 -152 A152 152 0 1 1 0 152 A152 152 0 1 1 0 -152" />
+  </defs>
+
+  <!-- Tread blocks around the outside -->
+  @for (treadAngle of treadAngles; track treadAngle) {
+    <rect
+      class="tyre-tread-block"
+      x="-11"
+      y="-206"
+      width="22"
+      height="30"
+      rx="4"
+      [attr.transform]="'rotate(' + treadAngle + ')'"
+    />
+  }
+
+  <circle class="tyre-rubber" r="186" />
+  <circle class="tyre-sidewall-ring" r="170" />
+  <circle class="tyre-sidewall-ring" r="134" />
+
+  <text class="tyre-sidewall-text">
+    <textPath href="#tyre-text-path">
+      ZGA TRANS · STRAIGHT TO YOUR GOALS · SEE ME RIDE · YOUR DREAMS COME ALIVE ·
+    </textPath>
+  </text>
+
+  <!-- Rim -->
+  <circle class="tyre-rim" r="126" />
+  <circle class="tyre-rim-glow" r="128" />
+  <circle class="tyre-rim-inner" r="104" />
+
+  @for (spokeAngle of spokeAngles; track spokeAngle) {
+    <path
+      class="tyre-spoke"
+      d="M-16 -36 L-26 -100 Q0 -108 26 -100 L16 -36 Z"
+      [attr.transform]="'rotate(' + spokeAngle + ')'"
+    />
+  }
+
+  <!-- Hub -->
+  <circle class="tyre-hub" r="40" />
+  @for (lugNutAngle of lugNutAngles; track lugNutAngle) {
+    <circle
+      class="tyre-lug-nut"
+      cx="0"
+      cy="-28"
+      r="4.5"
+      [attr.transform]="'rotate(' + lugNutAngle + ')'"
+    />
+  }
+  <circle class="tyre-hub-cap" r="15" />
+  <path class="tyre-hub-bolt" d="M3 -9 -5 2h5l-2 8 7-11H3z" />
+</svg>

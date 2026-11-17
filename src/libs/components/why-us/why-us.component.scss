@@ -1,0 +1,119 @@
+@use 'breakpoints' as *;
+@use 'section' as *;
+
+.why-us {
+  @include section-shell;
+  overflow: hidden;
+
+  .section-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    @include eyebrow;
+    margin: 0 0 var(--space-6);
+  }
+}
+
+// ─── Rolling tyre ────────────────────────────────────────────────────────────
+.why-us-tyre {
+  position: absolute;
+  top: 8%;
+  right: -22vw;
+  width: min(62vw, 820px);
+  opacity: 0.9;
+  pointer-events: none;
+
+  @include below-desktop {
+    top: 2%;
+    right: -40vw;
+    width: 90vw;
+    opacity: 0.3;
+  }
+}
+
+// ─── Manifesto ───────────────────────────────────────────────────────────────
+.manifesto {
+  max-width: 900px;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 4.4vw, 4rem);
+  font-weight: 800;
+  font-stretch: 105%;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+
+  .manifesto-word {
+    display: inline-block;
+  }
+
+  .manifesto-word-accent {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-stretch: 100%;
+    background: var(--gradient-electric);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+// ─── Stats ───────────────────────────────────────────────────────────────────
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: var(--space-9);
+  border-top: 1px solid var(--border);
+
+  @include below-desktop {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.stat {
+  padding: var(--space-6) var(--space-5) var(--space-6) 0;
+
+  & + .stat {
+    padding-left: var(--space-5);
+    border-left: 1px solid var(--border);
+  }
+
+  @include below-desktop {
+    &:nth-child(odd) {
+      padding-left: 0;
+      border-left: none;
+    }
+
+    &:nth-child(n + 3) {
+      border-top: 1px solid var(--border);
+    }
+  }
+
+  .stat-value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 5.6rem);
+    font-weight: 900;
+    font-stretch: 112%;
+    line-height: 1;
+    background: linear-gradient(180deg, #fff 30%, var(--accent-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .stat-suffix {
+    color: var(--amber);
+    -webkit-text-fill-color: var(--amber);
+  }
+
+  .stat-label {
+    margin: var(--space-2) 0 0;
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+}
