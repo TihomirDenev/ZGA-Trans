@@ -17,8 +17,8 @@
 }
 
 // ─── Manifesto + rolling tyre ────────────────────────────────────────────────
-// Desktop: text on the left, tyre on the right bleeding off the screen edge, so the
-// stats below never sit on top of it. Smaller screens: the tyre fades in behind the text.
+// Tablet & desktop: text on the left, tyre on the right bleeding off the screen edge, so
+// the stats below never sit on top of it. Phones: the tyre fades in behind the text.
 .why-us-intro {
   position: relative;
   display: grid;
@@ -26,7 +26,7 @@
   gap: var(--space-6);
   align-items: center;
 
-  @include below-desktop {
+  @include phone {
     grid-template-columns: 1fr;
   }
 }
@@ -34,8 +34,10 @@
 .why-us-tyre {
   margin-right: -6vw;
   pointer-events: none;
+  // Own GPU layer: the tyre spins with the scroll without repainting its glow every frame
+  will-change: transform;
 
-  @include below-desktop {
+  @include phone {
     position: absolute;
     top: -10%;
     right: -40vw;
@@ -88,7 +90,9 @@
 .stat {
   padding: var(--space-6) var(--space-5) var(--space-6) 0;
 
-  & + .stat {
+  // :not(:first-child) has the same weight as :nth-child(odd) below, so the
+  // tablet/phone override wins (a "+ .stat" selector would outweigh it)
+  &:not(:first-child) {
     padding-left: var(--space-5);
     border-left: 1px solid var(--border);
   }

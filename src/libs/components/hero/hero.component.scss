@@ -238,7 +238,8 @@
   text-transform: uppercase;
   color: var(--text-muted);
 
-  @include phone {
+  // A mouse icon makes no sense on touch screens, and on tablets it collides with the buttons
+  @include below-desktop {
     display: none;
   }
 
