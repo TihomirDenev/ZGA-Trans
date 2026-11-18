@@ -24,6 +24,14 @@
     radial-gradient(ellipse at 70% 100%, rgba(61, 123, 255, 0.16), transparent 60%),
     linear-gradient(to bottom, var(--surface-0), var(--surface-1));
 
+  @include tablet {
+    --road-height: 110px;
+    --truck-width: 64vw;
+    --stop-gap: 68vw;
+    --start-offset: 95vw;
+    --finish-tail: 80vw;
+  }
+
   @include phone {
     --road-height: 92px;
     --truck-width: 74vw;
@@ -119,8 +127,13 @@
   flex-grow: 1;
   overflow: hidden;
 
-  // On phones the scene keeps a fixed height right under the heading instead of
-  // stretching to the bottom edge, where the browser's toolbar may cover it
+  // On phones and tablets the scene keeps a fixed height right under the heading instead
+  // of stretching to the bottom edge, where the browser's toolbar may cover it
+  @include tablet {
+    flex: 0 1 560px;
+    margin-top: var(--space-5);
+  }
+
   @include phone {
     flex: 0 1 360px;
     margin-top: var(--space-3);
@@ -447,6 +460,7 @@
 // ─── Truck ───────────────────────────────────────────────────────────────────
 .journey-truck {
   position: absolute;
+  will-change: transform;
   left: 4vw;
   bottom: calc(var(--road-height) * 0.28);
   z-index: 2;
@@ -473,7 +487,7 @@
   }
 }
 
-// ─── Roadside verge (phones) ─────────────────────────────────────────────────
+// ─── Roadside verge (phones & tablets) ────────────────────────────────────────
 // Kerb, crash barrier with reflectors, and grass. Every layer repeats sideways and is
 // shifted by --verge-offset, which the drive timeline animates in sync with the road.
 .journey-verge {
@@ -486,7 +500,7 @@
   overflow: hidden;
   background: linear-gradient(to bottom, #0a1a14, #05090c 70%, #03050c);
 
-  @include phone {
+  @include below-desktop {
     display: flex;
   }
 
