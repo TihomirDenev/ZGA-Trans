@@ -500,7 +500,7 @@ The build output is a static folder: **`dist/zga-trans/browser`**.
 
 | Host                 | Settings                                                                          |
 | -------------------- | --------------------------------------------------------------------------------- |
-| **Vercel**           | Nothing to set: `vercel.json` already defines the build, output and headers       |
+| **Vercel**           | Nothing to set: `vercel.json` defines the build, output, headers and the real 404 |
 | **Netlify**          | Build: `npm run build` · Publish: `dist/zga-trans/browser`                        |
 | **Firebase Hosting** | `firebase init hosting` → public dir `dist/zga-trans/browser` · `firebase deploy` |
 | **Cloudflare Pages** | Build: `npm run build` · Output: `dist/zga-trans/browser`                         |
