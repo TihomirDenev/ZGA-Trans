@@ -47,26 +47,26 @@ export class CoverageComponent {
 
       createScopedAnimations(this.elementRef.nativeElement, this.destroyRef, () => {
         revealOnScroll('.coverage-text > *', '.coverage');
-        this.drawRoutesOnScroll();
+        this.drawRoutesWhenVisible();
         this.popCitiesIn();
       });
     });
   }
 
-  private drawRoutesOnScroll(): void {
+  /**
+   * Routes draw themselves once when the map comes into view. A one-off animation (instead of
+   * one tied to the scroll) means the map doesn't have to repaint on every scroll frame.
+   */
+  private drawRoutesWhenVisible(): void {
     gsap.fromTo(
       '.coverage-route',
       { strokeDashoffset: 1 },
       {
         strokeDashoffset: 0,
-        stagger: 0.08,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.coverage-map',
-          start: 'top 80%',
-          end: 'center 45%',
-          scrub: 0.6,
-        },
+        stagger: 0.12,
+        duration: 1.4,
+        ease: 'power2.inOut',
+        scrollTrigger: { trigger: '.coverage-map', start: 'top 75%' },
       },
     );
   }

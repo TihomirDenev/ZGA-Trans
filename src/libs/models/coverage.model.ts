@@ -6,6 +6,8 @@ export interface CoverageCity {
   y: number;
   /** Which side of the dot the name sits on, so labels don't run off the map */
   labelSide: 'left' | 'right';
+  /** Main hubs get a pulsing ring (only a few, to keep the map light on phones) */
+  isHub: boolean;
 }
 
 export interface CoverageRoute {

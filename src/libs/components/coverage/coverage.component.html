@@ -21,13 +21,14 @@
     </div>
 
     <div class="coverage-map">
-      <svg [attr.viewBox]="mapViewBox" role="img" aria-label="Map of England with our main routes">
+      <!-- Static layer: only repaints while the routes draw themselves on scroll -->
+      <svg
+        class="coverage-map-base"
+        role="img"
+        aria-label="Map of England with our main routes"
+        [attr.viewBox]="mapViewBox"
+      >
         <defs>
-          <radialGradient id="coverage-traffic-glow" r="0.5">
-            <stop offset="0" stop-color="#fff1d6" />
-            <stop offset="0.4" stop-color="#ffb057" />
-            <stop offset="1" stop-color="#ff8a1f" stop-opacity="0" />
-          </radialGradient>
           <linearGradient id="coverage-land" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#101a3a" />
             <stop offset="1" stop-color="#070b18" />
@@ -39,12 +40,10 @@
         @for (route of routes; track route.id) {
           <path class="coverage-route-glow" [attr.d]="route.path" />
           <path class="coverage-route" pathLength="1" [attr.d]="route.path" />
-          <circle class="coverage-traffic" r="5" [style.offset-path]="route.trafficPath" />
         }
 
         @for (city of cities; track city.id) {
           <g class="coverage-city">
-            <circle class="coverage-city-pulse" [attr.cx]="city.x" [attr.cy]="city.y" r="5" />
             <circle class="coverage-city-dot" [attr.cx]="city.x" [attr.cy]="city.y" r="4" />
             <text
               class="coverage-city-label"
@@ -55,6 +54,27 @@
               {{ city.name }}
             </text>
           </g>
+        }
+      </svg>
+
+      <!-- Moving layer on its own GPU layer: the traffic and pulses never repaint the map below -->
+      <svg class="coverage-map-live" aria-hidden="true" [attr.viewBox]="mapViewBox">
+        <defs>
+          <radialGradient id="coverage-traffic-glow" r="0.5">
+            <stop offset="0" stop-color="#fff1d6" />
+            <stop offset="0.4" stop-color="#ffb057" />
+            <stop offset="1" stop-color="#ff8a1f" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        @for (route of routes; track route.id) {
+          <circle class="coverage-traffic" r="5" [style.offset-path]="route.trafficPath" />
+        }
+
+        @for (city of cities; track city.id) {
+          @if (city.isHub) {
+            <circle class="coverage-city-pulse" [attr.cx]="city.x" [attr.cy]="city.y" r="5" />
+          }
         }
       </svg>
     </div>

@@ -7,20 +7,20 @@ export const ENGLAND_OUTLINE_PATH: string =
 export const COVERAGE_MAP_VIEW_BOX: string = '0 0 420 537';
 
 export const COVERAGE_CITIES: CoverageCity[] = [
-  { id: 'london', name: 'London', x: 308.5, y: 389.8, labelSide: 'right' },
-  { id: 'birmingham', name: 'Birmingham', x: 214.4, y: 303.3, labelSide: 'right' },
-  { id: 'manchester', name: 'Manchester', x: 195.6, y: 215.4, labelSide: 'right' },
-  { id: 'liverpool', name: 'Liverpool', x: 155.5, y: 221.8, labelSide: 'left' },
-  { id: 'leeds', name: 'Leeds', x: 232.6, y: 187.2, labelSide: 'right' },
-  { id: 'newcastle', name: 'Newcastle', x: 228.9, y: 83.1, labelSide: 'right' },
-  { id: 'carlisle', name: 'Carlisle', x: 158.7, y: 90.7, labelSide: 'left' },
-  { id: 'nottingham', name: 'Nottingham', x: 253.5, y: 261.9, labelSide: 'right' },
-  { id: 'bristol', name: 'Bristol', x: 177.1, y: 394.5, labelSide: 'right' },
-  { id: 'exeter', name: 'Exeter', x: 126.6, y: 459.5, labelSide: 'right' },
-  { id: 'plymouth', name: 'Plymouth', x: 94.0, y: 489.8, labelSide: 'left' },
-  { id: 'southampton', name: 'Southampton', x: 240.3, y: 442.6, labelSide: 'right' },
-  { id: 'dover', name: 'Dover', x: 385.5, y: 423.3, labelSide: 'left' },
-  { id: 'norwich', name: 'Norwich', x: 384.7, y: 290.5, labelSide: 'left' },
+  { id: 'london', name: 'London', x: 308.5, y: 389.8, labelSide: 'right', isHub: true },
+  { id: 'birmingham', name: 'Birmingham', x: 214.4, y: 303.3, labelSide: 'right', isHub: true },
+  { id: 'manchester', name: 'Manchester', x: 195.6, y: 215.4, labelSide: 'right', isHub: true },
+  { id: 'liverpool', name: 'Liverpool', x: 155.5, y: 221.8, labelSide: 'left', isHub: false },
+  { id: 'leeds', name: 'Leeds', x: 232.6, y: 187.2, labelSide: 'right', isHub: true },
+  { id: 'newcastle', name: 'Newcastle', x: 228.9, y: 83.1, labelSide: 'right', isHub: false },
+  { id: 'carlisle', name: 'Carlisle', x: 158.7, y: 90.7, labelSide: 'left', isHub: false },
+  { id: 'nottingham', name: 'Nottingham', x: 253.5, y: 261.9, labelSide: 'right', isHub: false },
+  { id: 'bristol', name: 'Bristol', x: 177.1, y: 394.5, labelSide: 'right', isHub: false },
+  { id: 'exeter', name: 'Exeter', x: 126.6, y: 459.5, labelSide: 'right', isHub: false },
+  { id: 'plymouth', name: 'Plymouth', x: 94.0, y: 489.8, labelSide: 'left', isHub: false },
+  { id: 'southampton', name: 'Southampton', x: 240.3, y: 442.6, labelSide: 'right', isHub: false },
+  { id: 'dover', name: 'Dover', x: 385.5, y: 423.3, labelSide: 'left', isHub: false },
+  { id: 'norwich', name: 'Norwich', x: 384.7, y: 290.5, labelSide: 'left', isHub: false },
 ];
 
 /** Main motorway corridors, drawn city to city */
