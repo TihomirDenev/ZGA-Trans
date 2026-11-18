@@ -44,31 +44,29 @@
       <stop offset="0.6" stop-color="#ff8a1f" stop-opacity="0.45" />
       <stop offset="1" stop-color="#ff8a1f" stop-opacity="0" />
     </radialGradient>
+    <!-- Every glow below is a gradient, not a filter: the truck moves every frame, and
+         filters would force the browser to re-blur the whole SVG each time -->
+    <radialGradient id="truck-underglow-fill" r="0.5">
+      <stop offset="0" stop-color="#3d7bff" stop-opacity="0.65" />
+      <stop offset="1" stop-color="#3d7bff" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="truck-lamp-glow" r="0.5">
+      <stop offset="0" stop-color="#ffffff" />
+      <stop offset="0.4" stop-color="#e6efff" />
+      <stop offset="1" stop-color="#cfe0ff" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="truck-smoke-fill" r="0.5">
+      <stop offset="0" stop-color="#bec9e6" stop-opacity="0.6" />
+      <stop offset="1" stop-color="#bec9e6" stop-opacity="0" />
+    </radialGradient>
     <radialGradient id="truck-brake" r="0.5">
       <stop offset="0" stop-color="#ff2b3d" stop-opacity="0.9" />
       <stop offset="1" stop-color="#ff2b3d" stop-opacity="0" />
     </radialGradient>
-    <filter id="truck-glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-    <filter id="truck-soft-blur">
-      <feGaussianBlur stdDeviation="10" />
-    </filter>
   </defs>
 
   <!-- ─── Effects on the road ─────────────────────────────────────── -->
-  <ellipse
-    class="truck-underglow"
-    cx="480"
-    cy="226"
-    rx="470"
-    ry="12"
-    filter="url(#truck-soft-blur)"
-  />
+  <ellipse class="truck-underglow" cx="480" cy="226" rx="480" ry="20" />
   <path class="truck-beam" d="M908 134 L1320 90 L1320 238 Z" />
   <ellipse class="truck-brake-glow" cx="10" cy="141" rx="46" ry="34" />
 
@@ -95,7 +93,7 @@
       <line class="trailer-rib" [attr.x1]="ribX" y1="36" [attr.x2]="ribX" y2="152" />
     }
 
-    <g class="trailer-lightning" filter="url(#truck-glow)">
+    <g class="trailer-lightning">
       <path d="M58 24 L84 60 L68 66 L100 112 L86 118 L112 160" />
       <path d="M470 24 L452 54 L470 60 L444 98" />
       <path d="M612 160 L594 126 L610 120 L586 88" />
@@ -107,7 +105,7 @@
 
     <!-- Sagittarius emblem -->
     <circle class="trailer-emblem-ring" cx="574" cy="92" r="38" />
-    <g class="trailer-emblem" transform="translate(544 62) scale(0.94)" filter="url(#truck-glow)">
+    <g class="trailer-emblem" transform="translate(544 62) scale(0.94)">
       <path d="M12 52 L50 14" />
       <path d="M28 14 H50 V36" />
       <path d="M19 31 L33 45" />
@@ -136,7 +134,7 @@
     <rect class="tractor-chrome" x="700" y="4" width="32" height="4" rx="2" />
     <rect class="tractor-light-bar" x="752" y="2" width="124" height="9" rx="4" />
     @for (lampX of roofLampPositionsX; track lampX) {
-      <circle class="tractor-roof-lamp" [attr.cx]="lampX" cy="6.5" r="3.2" />
+      <circle class="tractor-roof-lamp" [attr.cx]="lampX" cy="6.5" r="6" />
     }
 
     <!-- High cab -->
@@ -166,7 +164,7 @@
     <path class="tractor-mirror-arm" d="M886 40 L892 38" />
     <rect class="tractor-mirror" x="890" y="32" width="8" height="54" rx="3" />
 
-    <g class="tractor-lightning" filter="url(#truck-glow)">
+    <g class="tractor-lightning">
       <path d="M672 112 L704 128 L692 134 L730 156" />
       <path d="M884 118 L866 136 L878 140 L858 158" />
     </g>
@@ -180,7 +178,7 @@
 
     <path class="tractor-bumper" d="M872 150 H906 Q912 150 912 158 V186 Q912 194 904 194 H872 Z" />
     <rect class="tractor-chrome" x="878" y="166" width="32" height="3" rx="1.5" />
-    <circle class="tractor-fog-light" cx="902" cy="182" r="3.5" />
+    <circle class="tractor-fog-light" cx="902" cy="182" r="6" />
     <path
       class="tractor-headlight"
       d="M884 126 H904 Q908 126 908 130 V138 Q908 142 904 142 H884 Z"

@@ -10,24 +10,21 @@
 
 // ─── Effects ─────────────────────────────────────────────────────────────────
 .truck-underglow {
-  fill: rgba(61, 123, 255, 0.55);
+  fill: url(#truck-underglow-fill);
 }
 
 .truck-beam {
   fill: url(#truck-beam);
-  mix-blend-mode: screen;
 }
 
 // Animated from the journey section when the scroll stops (the truck "brakes")
 .truck-brake-glow {
   fill: url(#truck-brake);
   opacity: 0;
-  mix-blend-mode: screen;
 }
 
 .truck-smoke-puff {
-  fill: rgba(190, 202, 230, 0.55);
-  filter: blur(2px);
+  fill: url(#truck-smoke-fill);
   transform-box: fill-box;
   transform-origin: center;
   animation: exhaust-puff 2.8s ease-out infinite;
@@ -49,7 +46,6 @@
   stroke: var(--accent);
   stroke-width: 3;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px var(--accent));
 }
 
 .truck-marker-light {
@@ -58,7 +54,6 @@
 
 .truck-tail-light {
   fill: #ff2b3d;
-  filter: drop-shadow(0 0 6px #ff2b3d);
 }
 
 // ─── Trailer ─────────────────────────────────────────────────────────────────
@@ -98,10 +93,10 @@
 .tractor-lightning {
   path {
     fill: none;
-    stroke: var(--accent);
-    stroke-width: 2;
+    stroke: var(--accent-bright);
+    stroke-width: 2.4;
     stroke-linejoin: round;
-    opacity: 0.85;
+    opacity: 0.9;
   }
 }
 
@@ -193,8 +188,7 @@
 }
 
 .tractor-roof-lamp {
-  fill: #fff;
-  filter: drop-shadow(0 0 4px #cfe0ff) drop-shadow(0 0 10px rgba(207, 224, 255, 0.6));
+  fill: url(#truck-lamp-glow);
 }
 
 .tractor-visor {
@@ -239,20 +233,17 @@
 }
 
 .tractor-fog-light {
-  fill: var(--amber-bright);
-  filter: drop-shadow(0 0 5px var(--amber));
+  fill: url(#truck-marker-glow);
 }
 
 .tractor-headlight {
   fill: #fff;
-  filter: drop-shadow(0 0 8px #cfe0ff);
 }
 
 .tractor-drl {
   stroke: var(--accent-bright);
   stroke-width: 2.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 5px var(--accent));
 }
 
 .wheel-arch {
